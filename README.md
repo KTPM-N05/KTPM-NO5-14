@@ -1,9 +1,9 @@
 # KTPM-NO5- Nhóm 14
 
-#  MÔ TẢ DỰ ÁN: Website Bán Điện Thoại Trực Tuyến
+#  MÔ TẢ DỰ ÁN: Website Bán thiết bị điện tử
 
 ## Mục tiêu 
-Phát triển một website thương mại điện tử cho phép người dùng xem và đặt mua điện thoại, đồng thời hỗ trợ người quản trị quản lý sản phẩm, đơn hàng và khách hàng.
+Phát triển một website thương mại điện tử cho phép người dùng xem và đặt mua thiết bị điện tử, đồng thời hỗ trợ người quản trị quản lý sản phẩm, đơn hàng và khách hàng.
 
 ##  1. Yêu cầu chức năng
 
