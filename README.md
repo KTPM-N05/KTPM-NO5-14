@@ -16,14 +16,14 @@ Quản trị viên: có thể đăng nhập vào trang quản trị để thêm,
 ##  2. Chức năng chính của hệ thống 
 
 ### a. Đối với khách hàng
-Đăng ký
-Đăng nhập
-Đăng xuất
-Xem danh sách sản phẩm theo danh mục
-Xem chi tiết sản phẩm
-Thêm sản phẩm vào giỏ hàng
-Xóa sản phẩm khỏi giỏ hàng
-Đặt hàng (mô phỏng)
+Đăng ký.
+Đăng nhập.
+Đăng xuất.
+Xem danh sách sản phẩm theo danh mục.
+Xem chi tiết sản phẩm.
+Thêm sản phẩm vào giỏ hàng.
+Xóa sản phẩm khỏi giỏ hàng.
+Đặt hàng (mô phỏng).
 
 
 ### b, Đối với quản trị viên 
