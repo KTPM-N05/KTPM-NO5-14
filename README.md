@@ -35,16 +35,11 @@ Xem danh sách đơn hàng đã đặt.
 
 ## 3. Ngôn ngữ sử dụng
 
-- Ngôn ngữ lập trình: HTML, CSS, JavaScript, PHP (hoặc Node.js/Python)
-- Cơ sở dữ liệu: MySQL
-- Môi trường phát triển: XAMPP / VS Code
-- Thiết kế giao diện: Có thể sử dụng Bootstrap để hỗ trợ responsive
+## 4. Kết quả dự kiến
 
-## 4 Kết quả dự kiến 
-
-Một website đơn giản có đầy đủ chức năng cơ bản của một trang bán hàng.
-Người dùng có thể tương tác với website và đặt hàng.
-Admin có thể quản lý được sản phẩm và đơn hàng.
+- Một website đơn giản có đầy đủ chức năng cơ bản của một trang bán hàng.
+- Người dùng có thể tương tác với website và đặt hàng.
+- Admin có thể quản lý được sản phẩm và đơn hàng.
 
 
 
