@@ -35,6 +35,12 @@ Quản trị viên: có thể đăng nhập vào trang quản trị để thêm,
 
 ## 3. Ngôn ngữ sử dụng
 
+- Ngôn ngữ lập trình: HTML, CSS, JavaScript, PHP (hoặc Node.js/Python)
+- Cơ sở dữ liệu: MySQL
+- Môi trường phát triển: XAMPP / VS Code
+- Thiết kế giao diện: Có thể sử dụng Bootstrap để hỗ trợ responsive
+
+
 ## 4. Kết quả dự kiến
 
 - Một website đơn giản có đầy đủ chức năng cơ bản của một trang bán hàng.
