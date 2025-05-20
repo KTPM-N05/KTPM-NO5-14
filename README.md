@@ -33,12 +33,12 @@ Quản trị viên: có thể đăng nhập vào trang quản trị để thêm,
 Quản lý sản phẩm (thêm, sửa, xóa).
 Xem danh sách đơn hàng đã đặt.
 
-## 3 Ngôn ngữ sử dụng 
+## 3. Ngôn ngữ sử dụng
 
-Ngôn ngữ lập trình: HTML, CSS, JavaScript, PHP (hoặc Node.js/Python)
-Cơ sở dữ liệu: MySQL
-Môi trường phát triển: XAMPP / VS Code
-Thiết kế giao diện: Có thể sử dụng Bootstrap để hỗ trợ responsive
+- Ngôn ngữ lập trình: HTML, CSS, JavaScript, PHP (hoặc Node.js/Python)
+- Cơ sở dữ liệu: MySQL
+- Môi trường phát triển: XAMPP / VS Code
+- Thiết kế giao diện: Có thể sử dụng Bootstrap để hỗ trợ responsive
 
 ## 4 Kết quả dự kiến 
 
