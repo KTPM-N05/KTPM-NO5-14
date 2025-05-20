@@ -27,11 +27,11 @@ Quản trị viên: có thể đăng nhập vào trang quản trị để thêm,
 - Đặt hàng (mô phỏng).
 
 
-### b, Đối với quản trị viên 
+### b. Đối với quản trị viên
 
-Đăng nhập vào trang quản trị.
-Quản lý sản phẩm (thêm, sửa, xóa).
-Xem danh sách đơn hàng đã đặt.
+- Đăng nhập vào trang quản trị.
+- Quản lý sản phẩm (thêm, sửa, xóa).
+- Xem danh sách đơn hàng đã đặt.
 
 ## 3. Ngôn ngữ sử dụng
 
