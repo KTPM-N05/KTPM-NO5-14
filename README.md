@@ -3,27 +3,49 @@
 #  MÔ TẢ DỰ ÁN: Website Bán thiết bị điện tử
 
 ## Mục tiêu 
-Phát triển một website thương mại điện tử cho phép người dùng xem và đặt mua thiết bị điện tử, đồng thời hỗ trợ người quản trị quản lý sản phẩm, đơn hàng và khách hàng.
+Xây dựng một website bán hàng trực tuyến chuyên cung cấp các thiết bị điện tử như điện thoại, laptop, tai nghe, chuột máy tính, bàn phím, v.v... Dự án nhằm giúp sinh viên vận dụng kiến thức đã học để xây dựng một hệ thống web hoàn chỉnh, hỗ trợ người dùng tìm kiếm, xem thông tin sản phẩm và đặt hàng một cách dễ dàng.
 
-##  1. Yêu cầu chức năng
+Dự án cũng hướng đến việc nâng cao kỹ năng lập trình web, thao tác với cơ sở dữ liệu và phát triển phần mềm theo nhóm.
 
- - Đăng ký / Đăng nhập :Người dùng tạo tài khoản và đăng nhập bằng email/mật khẩu
 
- - Duyệt & tìm kiếm sản phẩm : Xem danh sách điện thoại, lọc theo hãng, giá, loại (iOS, Android...)
+##  1. Đối tượng sử dụng 
 
- - Chi tiết sản phẩm : Xem thông tin chi tiết: cấu hình, giá, ảnh, khuyến mãi
+Người dùng (khách hàng): có thể truy cập để xem sản phẩm, đăng ký tài khoản và đặt mua hàng.
+Quản trị viên: có thể đăng nhập vào trang quản trị để thêm, sửa, xóa sản phẩm và kiểm tra đơn hàng.
 
- - Giỏ hàng :Thêm, xóa, cập nhật số lượng sản phẩm trong giỏ
+##  2. Chức năng chính của hệ thống 
 
- - Đặt hàng : Gửi đơn đặt hàng, chọn hình thức thanh toán và địa chỉ giao hàng
+### a, Đối với khách hàng
 
- - Quản lý đơn hàng :Người dùng xem lịch sử đơn hàng; admin duyệt và cập nhật trạng thái đơn
+Đăng ký, đăng nhập, đăng xuất tài khoản.
+Xem danh sách sản phẩm theo danh mục.
+Xem chi tiết sản phẩm.
+Thêm sản phẩm vào giỏ hàng.
+Xóa sản phẩm khỏi giỏ hàng.
+Đặt hàng (mô phỏng).
 
- - Quản lý sản phẩm (Admin) :Thêm/sửa/xóa điện thoại; cập nhật tồn kho và giá
+###, Đối với quản trị viên 
 
- - Quản lý người dùng (Admin) :Phân quyền: người dùng, quản trị viên
+Đăng nhập vào trang quản trị.
+Quản lý sản phẩm (thêm, sửa, xóa).
+Xem danh sách đơn hàng đã đặt.
 
- - Thống kê doanh thu (Admin) : 	Biểu đồ đơn hàng, doanh thu theo ngày/tháng/năm
+## 3 Ngôn ngữ sử dụng 
+
+Ngôn ngữ lập trình: HTML, CSS, JavaScript, PHP (hoặc Node.js/Python)
+Cơ sở dữ liệu: MySQL
+Môi trường phát triển: XAMPP / VS Code
+Thiết kế giao diện: Có thể sử dụng Bootstrap để hỗ trợ responsive
+
+## 4 Kết quả dự kiến 
+
+Một website đơn giản có đầy đủ chức năng cơ bản của một trang bán hàng.
+Người dùng có thể tương tác với website và đặt hàng.
+Admin có thể quản lý được sản phẩm và đơn hàng.
+
+
+
+
 
    
 
