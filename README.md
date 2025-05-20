@@ -24,7 +24,7 @@ Thêm sản phẩm vào giỏ hàng.
 Xóa sản phẩm khỏi giỏ hàng.
 Đặt hàng (mô phỏng).
 
-###, Đối với quản trị viên 
+### b, Đối với quản trị viên 
 
 Đăng nhập vào trang quản trị.
 Quản lý sản phẩm (thêm, sửa, xóa).
