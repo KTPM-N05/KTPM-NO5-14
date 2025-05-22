@@ -126,7 +126,7 @@
 						<li><a href="#">Máy tính xách tay</a></li>
 						<li><a href="#">Điện thoại thông minh</a></li>
 						<li><a href="#">Máy ảnh</a></li>
-						<li class="active"><a href="#">Phụ kiện</a></li>
+						<li class="active"><a href="{{ route('product') }}">Phụ kiện</a></li>
 					</ul>
 					</div>
 				</div>
