@@ -121,11 +121,11 @@
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="{{ route('home') }}">Trang chủ</a></li>
 						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li><a href="#">Danh mục</a></li>
+						<li><a href="{{ route('danhmuc') }}">Danh mục</a></li>
 						<li><a href="#">Máy tính xách tay</a></li>
 						<li><a href="#">Điện thoại thông minh</a></li>
 						<li><a href="#">Máy ảnh</a></li>
-						<li><a href="#">Phụ kiện</a></li>
+						<li><a href="{{ route('product') }}">Phụ kiện</a></li>
 					</ul>
 					</div>
 				</div>

@@ -21,4 +21,7 @@ class PageController extends Controller
     public function checkout() {
         return view('checkout'); // resources/views/checkout.blade.php
     }
+    public function blank(){
+        return view('blank');// resources/views/blank.blane.php
+    }
 }

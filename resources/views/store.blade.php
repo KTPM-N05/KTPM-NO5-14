@@ -123,7 +123,7 @@
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="{{ route('home') }}">Trang chủ</a></li>
 						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li class="active"><a href="#">Danh mục</a></li>
+						<li class="active"><a href="{{ route('danhmuc') }}">Danh mục</a></li>
 						<li><a href="#">Máy tính xách tay</a></li>
 						<li><a href="#">Điện thoại thông minh</a></li>
 						<li><a href="#">Máy ảnh</a></li>
