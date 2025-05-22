@@ -7,6 +7,7 @@ Route::get('/', [PageController::class, 'index']);
 Route::get('/store', [PageController::class, 'store']);
 Route::get('/product', [PageController::class, 'product']);
 Route::get('/checkout', [PageController::class, 'checkout']);
+Route::get('/blank',[PageController::class,'blank']);
 Route::get('/', function () {
     return view('index');
 })->name('home');
