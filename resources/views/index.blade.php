@@ -104,7 +104,7 @@
 										</div>
 										<div class="cart-btns">
 											<a href="#">Xem giỏ hàng</a>
-											<a href="checkout.html">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="{{ route('checkout') }}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -126,11 +126,11 @@
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="index.html">Trang chủ</a></li>
 						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li><a href="#">Danh mục</a></li>
+						<li><a href="{{ route('danhmuc') }}">Danh mục</a></li>
 						<li><a href="#">Máy tính xách tay</a></li>
 						<li><a href="#">Điện thoại thông minh</a></li>
 						<li><a href="#">Máy ảnh</a></li>
-						<li><a href="#">Phụ kiện</a></li>
+						<li><a href="{{ route('product') }}">Phụ kiện</a></li>
 					</ul>
 					</div>
 				</div>
@@ -206,7 +206,7 @@
 											</div>
 											<div class="product-body">
 												<p class="product-category">Danh mục</p>
-												<h3 class="product-name"><a href="product.html">tên sản phẩm ở đây</a></h3>
+												<h3 class="product-name"><a href="{{ route('product') }}">tên sản phẩm ở đây</a></h3>
 												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>

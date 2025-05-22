@@ -37,7 +37,7 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="index.html" class="logo">
+								<a href="{{ route('home') }}" class="logo">
 									<img src="./img/logo.png" alt="Logo">
 								</a>
 							</div>
@@ -100,7 +100,7 @@
 										</div>
 										<div class="cart-btns">
 											<a href="#">Xem giỏ hàng</a>
-											<a href="checkout.html">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="{{ route('checkout') }}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -120,9 +120,9 @@
 			<div class="container">
 				<div id="responsive-nav">
 					<ul class="main-nav nav navbar-nav">
-						<li><a href="index.html">Trang chủ</a></li>
+						<li><a href="{{ route('home') }}">Trang chủ</a></li>
 						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li><a href="#">Danh mục</a></li>
+						<li><a href="{{ route('danhmuc') }}">Danh mục</a></li>
 						<li><a href="#">Máy tính xách tay</a></li>
 						<li><a href="#">Điện thoại thông minh</a></li>
 						<li><a href="#">Máy ảnh</a></li>
@@ -136,7 +136,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="index.html">Trang chủ</a></li>
+							<li><a href="{{ route('home') }}">Trang chủ</a></li>
 							<li><a href="#">Tất cả danh mục</a></li>
 							<li><a href="#">Phụ kiện</a></li>
 							<li><a href="#">Tai nghe</a></li>
