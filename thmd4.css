@@ -112,6 +112,7 @@ img {
 
 /* --- 5. Áp dụng thuộc tính flex (đã làm cho nav) --- */
 /* Bạn có thể áp dụng Flex cho một container khác nếu muốn, ví dụ:
+*/
 .flex-container {
     display: flex;
     justify-content: space-around;
