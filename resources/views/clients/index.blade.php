@@ -1,141 +1,9 @@
-<!DOCTYPE html>
-<html lang="vi">
-	<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Electro - Mẫu Giao Diện Thương Mại Điện Tử HTML</title>
+@extends('layouts.main')
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+@section('title', 'Shop')
 
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/slick.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
-
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-	<body>
-		<header>
-			<div id="top-header">
-				<div class="container">
-					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Đường Stonecoal</a></li>
-					</ul>
-					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> Tài khoản của tôi</a></li>
-					</ul>
-				</div>
-			</div>
-			<div id="header">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="header-logo">
-								<a href="#" class="logo">
-									<img src="./img/logo.png" alt="Logo">
-								</a>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">Tất cả danh mục</option>
-										<option value="1">Danh mục 01</option>
-										<option value="1">Danh mục 02</option>
-									</select>
-									<input class="input" placeholder="Tìm kiếm tại đây">
-									<button class="search-btn">Tìm kiếm</button>
-								</form>
-							</div>
-						</div>
-						<div class="col-md-3 clearfix">
-							<div class="header-ctn">
-								<div>
-									<a href="#">
-										<i class="fa fa-heart-o"></i>
-										<span>Danh sách yêu thích</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Giỏ hàng của bạn</span>
-										<div class="qty">3</div>
-									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product01.png" alt="Tên sản phẩm">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">tên sản phẩm ở đây</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product02.png" alt="Tên sản phẩm">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">tên sản phẩm ở đây</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-										</div>
-										<div class="cart-summary">
-											<small>3 sản phẩm đã chọn</small>
-											<h5>TỔNG PHỤ: $2940.00</h5>
-										</div>
-										<div class="cart-btns">
-											<a href="#">Xem giỏ hàng</a>
-											<a href="{{ route('checkout') }}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-								</div>
-								</div>
-						</div>
-						</div>
-					</div>
-				</div>
-			</header>
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="index.html">Trang chủ</a></li>
-						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li><a href="{{ route('danhmuc') }}">Danh mục</a></li>
-						<li><a href="#">Máy tính xách tay</a></li>
-						<li><a href="#">Điện thoại thông minh</a></li>
-						<li><a href="#">Máy ảnh</a></li>
-						<li><a href="{{ route('product') }}">Phụ kiện</a></li>
-					</ul>
-					</div>
-				</div>
-			</nav>
-		<div class="section">
+@section('content')
+<div class="section">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-xs-6">
@@ -724,9 +592,12 @@
 										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 									</div>
 								</div>
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="./img/product03.png" alt="Tên sản phẩm">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Danh 
+							</div>
+                        </div>
+                    </div>
+             </div>
+         </div> 
+        </div>
+</div>
+									
+@endsection

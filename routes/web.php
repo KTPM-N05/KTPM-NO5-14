@@ -9,14 +9,14 @@ Route::get('/product', [PageController::class, 'product']);
 Route::get('/checkout', [PageController::class, 'checkout']);
 Route::get('/blank',[PageController::class,'blank']);
 Route::get('/', function () {
-    return view('index');
+    return view('clients.index');
 })->name('home');
 Route::get('/checkout', function () {
-    return view('checkout');
+    return view('clients.checkout');
 })->name('checkout');
 Route::get('/store',function(){
-    return view('store');
+    return view('clients.store');
 })->name('danhmuc');
 Route::get('/product',function(){
-    return view('product');
+    return view('clients.product');
 })->name('product');
