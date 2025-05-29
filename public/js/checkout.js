@@ -1,122 +1,100 @@
-
 $(document).ready(function(){
+				$('input[name="payment"]').on('change', function() {
+					if ($('#payment-1').is(':checked')) {
+						$('#bank-details').show();
+					} else {
+						$('#bank-details').hide();
+					}
+				});
 
-	// 1. Hiển thị/ẩn thông tin tài khoản ngân hàng
-	$('input[name="payment"]').on('change', function() {
-		if ($(this).val() === 'bank') {
-			$('#bank-details').show();
-		} else {
-			$('#bank-details').hide();
-		}
-	});
+				// Demo logic cho việc chọn địa chỉ (cần dữ liệu thực tế và logic phức tạp hơn)
+				$('#province').on('change', function(){
+					var selectedProvince = $(this).val();
+					// Xóa các lựa chọn cũ
+					$('#district').empty().append('<option value="">Chọn Quận/Huyện</option>');
+					$('#ward').empty().append('<option value="">Chọn Phường/Xã</option>');
 
-	// 2. Xử lý địa chỉ tỉnh/quận/xã (demo dữ liệu)
-	$('#province').on('change', function(){
-		var selectedProvince = $(this).val();
-		$('#district').empty().append('<option value="">Chọn Quận/Huyện</option>');
-		$('#ward').empty().append('<option value="">Chọn Phường/Xã</option>');
+					if (selectedProvince === 'hanoi') {
+						$('#district').append('<option value="badinh">Ba Đình</option><option value="hoankiem">Hoàn Kiếm</option>');
+					} else if (selectedProvince === 'hcm') {
+						$('#district').append('<option value="q1">Quận 1</option><option value="q3">Quận 3</option>');
+					}
+					// Thêm logic tương tự cho các tỉnh/thành khác
+				});
 
-		if (selectedProvince === 'hanoi') {
-			$('#district').append('<option value="badinh">Ba Đình</option><option value="hoankiem">Hoàn Kiếm</option>');
-		} else if (selectedProvince === 'hcm') {
-			$('#district').append('<option value="q1">Quận 1</option><option value="q3">Quận 3</option>');
-		}
-	});
+				$('#district').on('change', function(){
+					var selectedDistrict = $(this).val();
+					$('#ward').empty().append('<option value="">Chọn Phường/Xã</option>');
+					if (selectedDistrict === 'badinh') {
+						$('#ward').append('<option value="phucxa">Phúc Xá</option><option value="trucbach">Trúc Bạch</option>');
+					} else if (selectedDistrict === 'q1') {
+						$('#ward').append('<option value="tandinh">Tân Định</option><option value="dakao">Đa Kao</option>');
+					}
+					// Thêm logic tương tự
+				});
 
-	$('#district').on('change', function(){
-		var selectedDistrict = $(this).val();
-		$('#ward').empty().append('<option value="">Chọn Phường/Xã</option>');
+				// Tương tự cho địa chỉ giao hàng
+				$('#shipping-province').on('change', function(){
+					var selectedProvince = $(this).val();
+					$('#shipping-district').empty().append('<option value="">Chọn Quận/Huyện</option>');
+					$('#shipping-ward').empty().append('<option value="">Chọn Phường/Xã</option>');
+					// Logic tải quận/huyện
+				});
+				$('#shipping-district').on('change', function(){
+					// Logic tải phường/xã
+				});
 
-		if (selectedDistrict === 'badinh') {
-			$('#ward').append('<option value="phucxa">Phúc Xá</option><option value="trucbach">Trúc Bạch</option>');
-		} else if (selectedDistrict === 'q1') {
-			$('#ward').append('<option value="tandinh">Tân Định</option><option value="dakao">Đa Kao</option>');
-		}
-	});
 
-	// Địa chỉ giao hàng (tùy bạn có checkbox đồng bộ hay không)
-	$('#shipping-province').on('change', function(){
-		var selectedProvince = $(this).val();
-		$('#shipping-district').empty().append('<option value="">Chọn Quận/Huyện</option>');
-		$('#shipping-ward').empty().append('<option value="">Chọn Phường/Xã</option>');
-		// Tùy chọn thêm quận huyện tương tự
-	});
+				// Xử lý nút áp dụng mã giảm giá (demo)
+				$('#apply-discount-btn').on('click', function(e){
+					e.preventDefault();
+					var discountCode = $('input[name="discount-code"]').val();
+					if(discountCode.toLowerCase() === 'giamgia10'){
+						alert('Áp dụng mã giảm giá 10% thành công!');
+						// Cần logic cập nhật lại tổng tiền ở đây
+					} else if(discountCode === '') {
+						alert('Vui lòng nhập mã giảm giá.');
+					}
+					else {
+						alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+					}
+				});
 
-	$('#shipping-district').on('change', function(){
-		$('#shipping-ward').empty().append('<option value="">Chọn Phường/Xã</option>');
-		// Tùy chọn thêm phường xã tương ứng
-	});
+				// Client-side validation demo (Bootstrap có thể xử lý một phần)
+				$('.order-submit').on('click', function(e){
+					var formValid = true;
+					// Kiểm tra các trường bắt buộc trong .billing-details
+					$('.billing-details input[required]').each(function(){
+						if($(this).val() === ''){
+							$(this).css('border-color', 'red');
+							formValid = false;
+						} else {
+							$(this).css('border-color', '#E4E7ED');
+						}
+					});
+					$('.billing-details select[required]').each(function(){
+						if($(this).val() === ''){
+							$(this).css('border-color', 'red');
+							formValid = false;
+						} else {
+							$(this).css('border-color', '#E4E7ED');
+						}
+					});
 
-	// 3. Áp dụng mã giảm giá
-	$('#apply-discount-btn').on('click', function(e){
-		e.preventDefault();
-		var discountCode = $('input[name="discount-code"]').val().toLowerCase();
+					if (!$('#terms').is(':checked')) {
+						alert('Bạn cần đồng ý với điều khoản và điều kiện.');
+						formValid = false;
+					}
 
-		if(discountCode === 'giamgia10'){
-			alert('Áp dụng mã giảm giá 10% thành công!');
-			let total = parseFloat($('#total-amount').data('original')); // Đặt sẵn total gốc ở data-original
-			if (!total || isNaN(total)) total = parseFloat($('#total-amount').text());
-			let discounted = total * 0.9;
-			$('#total-amount').text(discounted.toFixed(0) + 'đ');
-		} else if(discountCode === '') {
-			alert('Vui lòng nhập mã giảm giá.');
-		}
-		else {
-			alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
-		}
-	});
+					if(!formValid){
+						e.preventDefault(); // Ngăn chặn việc submit nếu form không hợp lệ
+						alert('Vui lòng điền đầy đủ các thông tin bắt buộc và đồng ý với điều khoản.');
+					} else {
+						// Nếu form hợp lệ, có thể thực hiện submit hoặc các hành động khác
+						alert('Đơn hàng của bạn đang được xử lý!');
+						// Ví dụ: $(this).closest('form').submit();
+					}
+				});
 
-	// 4. Xác thực client-side
-	$('.order-submit').on('click', function(e){
-		var formValid = true;
 
-		// Kiểm tra input required
-		$('.billing-details input[required]').each(function(){
-			if($(this).val() === ''){
-				$(this).css('border-color', 'red');
-				formValid = false;
-			} else {
-				$(this).css('border-color', '#E4E7ED');
-			}
-		});
-
-		// Kiểm tra select required
-		$('.billing-details select[required]').each(function(){
-			if($(this).val() === ''){
-				$(this).css('border-color', 'red');
-				formValid = false;
-			} else {
-				$(this).css('border-color', '#E4E7ED');
-			}
-		});
-
-		// Kiểm tra email định dạng
-		var email = $('input[name="email"]').val();
-		if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			alert('Email không hợp lệ.');
-			formValid = false;
-		}
-
-		// Kiểm tra số điện thoại (có thể điều chỉnh pattern theo ý bạn)
-		var phone = $('input[name="phone"]').val();
-		if (phone && !/^\d{9,11}$/.test(phone)) {
-			alert('Số điện thoại không hợp lệ.');
-			formValid = false;
-		}
-
-		// Đồng ý điều khoản
-		if (!$('#terms').is(':checked')) {
-			alert('Bạn cần đồng ý với điều khoản và điều kiện.');
-			formValid = false;
-		}
-
-		if(!formValid){
-			e.preventDefault();
-			alert('Vui lòng điền đầy đủ thông tin hợp lệ.');
-		} else {
-			alert('Đơn hàng của bạn đang được xử lý!');
-			// $(this).closest('form').submit(); // mở nếu muốn submit thực
-		}
-	});
-});
-
+			});

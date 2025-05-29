@@ -1,5 +1,4 @@
-<head>
-    <header>
+<header>
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
@@ -8,7 +7,7 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Đường Stonecoal</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+						<li><a href="#"><i class="fa fa-money"></i> VNĐ</a></li>
 						<li><a href="#"><i class="fa fa-user-o"></i> Tài khoản của tôi</a></li>
 					</ul>
 				</div>
@@ -19,7 +18,7 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="#" class="logo">
-									<img src="./img/logo.png" alt="Logo">
+									<img src="./img/logo.png" alt="Logo Electro">
 								</a>
 							</div>
 						</div>
@@ -28,8 +27,10 @@
 								<form>
 									<select class="input-select">
 										<option value="0">Tất cả danh mục</option>
-										<option value="1">Danh mục 01</option>
-										<option value="1">Danh mục 02</option>
+										<option value="1">Máy tính xách tay</option>
+										<option value="2">Điện thoại thông minh</option>
+										<option value="3">Máy ảnh</option>
+										<option value="4">Phụ kiện</option>
 									</select>
 									<input class="input" placeholder="Tìm kiếm tại đây">
 									<button class="search-btn">Tìm kiếm</button>
@@ -55,33 +56,32 @@
 										<div class="cart-list">
 											<div class="product-widget">
 												<div class="product-img">
-													<img src="./img/product01.png" alt="Tên sản phẩm">
+													<img src="./img/product01.png" alt="Laptop UltraBook ZenMax">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="#">tên sản phẩm ở đây</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+													<h3 class="product-name"><a href="product.html">Laptop UltraBook ZenMax</a></h3>
+													<h4 class="product-price"><span class="qty">1x</span>24.500.000 VNĐ</h4>
 												</div>
 												<button class="delete"><i class="fa fa-close"></i></button>
 											</div>
 
 											<div class="product-widget">
 												<div class="product-img">
-													<img src="./img/product02.png" alt="Tên sản phẩm">
+													<img src="./img/product02.png" alt="Smartphone Galaxy Pro">
 												</div>
 												<div class="product-body">
-													<h3 class="product-name"><a href="#">tên sản phẩm ở đây</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+													<h3 class="product-name"><a href="product.html">Smartphone Galaxy Pro</a></h3>
+													<h4 class="product-price"><span class="qty">2x</span>21.750.000 VNĐ</h4>
 												</div>
 												<button class="delete"><i class="fa fa-close"></i></button>
 											</div>
 										</div>
 										<div class="cart-summary">
 											<small>3 sản phẩm đã chọn</small>
-											<h5>TỔNG PHỤ: $2940.00</h5>
-										</div>
+											<h5>TỔNG PHỤ: 68.000.000 VNĐ</h5> </div>
 										<div class="cart-btns">
 											<a href="#">Xem giỏ hàng</a>
-											<a href="{{ route('checkout') }}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="{{route('chekout')}}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -97,19 +97,18 @@
 					</div>
 				</div>
 			</header>
-            <nav id="navigation">
+		<nav id="navigation">
 			<div class="container">
 				<div id="responsive-nav">
 					<ul class="main-nav nav navbar-nav">
-						<li><a href="{{route('home')}}">Trang chủ</a></li>
+						<li class="active"><a href="{{route('home')}}">Trang chủ</a></li>
 						<li><a href="#">Ưu đãi hấp dẫn</a></li>
-						<li><a href="{{ route('danhmuc') }}">Danh mục</a></li>
-						<li><a href="#">Máy tính xách tay</a></li>
-						<li><a href="#">Điện thoại thông minh</a></li>
-						<li><a href="#">Máy ảnh</a></li>
-						<li><a href="{{ route('product') }}">Phụ kiện</a></li>
+						<li><a href="{{route('danhmuc')}}">Danh mục</a></li>
+						<li><a href="store.html">Máy tính xách tay</a></li>
+						<li><a href="store.html">Điện thoại thông minh</a></li>
+						<li><a href="store.html">Máy ảnh</a></li>
+						<li><a href="{{route('product')}}">Phụ kiện</a></li>
 					</ul>
 					</div>
 				</div>
 			</nav>
-</head>
