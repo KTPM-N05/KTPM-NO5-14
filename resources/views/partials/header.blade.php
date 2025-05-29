@@ -8,7 +8,7 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-money"></i> VNĐ</a></li>
-						<li><a href="login"><i class="fa fa-user-o"></i> Tài khoản của tôi</a></li>
+						<li><a href="{{route('login')}}"><i class="fa fa-user-o"></i> Tài khoản của tôi</a></li>
 					</ul>
 				</div>
 			</div>

@@ -13,6 +13,10 @@ Route::get('/blank',[PageController::class,'blank']);
 Route::get('/laptop',[PageController:: class,'laptop']);
 Route::get('/telephone',[PageController::class,'telephone']);
 Route::get('/camera',[PageController::class,'camera']);
+Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'postLogin']);
+Route::get('/register', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'postRegister']);
 Route::get('/', function () {
     return view('clients.index');
 })->name('home');
@@ -34,3 +38,9 @@ Route::get('/telephone',function(){
 Route::get('/camera',function(){
     return view('clients.camera');
 })->name('camera');
+Route::get('/login', function () {
+    return view('login.login');
+})->name('login');
+Route::get('/register', function () {
+    return view('login.register');
+})->name('register');

@@ -33,5 +33,11 @@ class PageController extends Controller
     public function laptop(){
         return view('latop'); //resources/views/laptop/blade.php
     }
+    public function login() {
+        return view('login'); // resources/views/login.blade.php
+    }
+    public function register() {
+        return view('register'); // resources/views/register.blade.php
+    }
 
 }
