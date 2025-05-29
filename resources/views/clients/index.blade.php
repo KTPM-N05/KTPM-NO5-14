@@ -13,7 +13,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Bộ sưu tập<br>Máy tính xách tay</h3>
-								<a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="{{route('laptop')}}" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -24,7 +24,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Bộ sưu tập<br>Phụ kiện</h3>
-								<a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="{{route('product')}}" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Bộ sưu tập<br>Máy ảnh</h3>
-								<a href="#" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="{{route('camera')}}" class="cta-btn">Mua ngay <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>

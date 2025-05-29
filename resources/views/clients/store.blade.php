@@ -171,7 +171,7 @@
 								</div>
 							</div>
 						</div>
-						</div>
+					</div>
 					<div id="store" class="col-md-9">
 						<div class="store-filter clearfix">
 							<div class="store-sort">
@@ -489,6 +489,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 		<div id="newsletter" class="section">
 			<div class="container">
 				<div class="row">
