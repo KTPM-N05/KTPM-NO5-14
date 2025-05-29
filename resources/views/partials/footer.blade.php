@@ -33,7 +33,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Thông tin</h3>
 								<ul class="footer-links">
-									<li><a href="#">Về chúng tôi</a></li>
+									<li><a href="{{route('home')}}">Về chúng tôi</a></li>
 									<li><a href="#">Liên hệ chúng tôi</a></li>
 									<li><a href="#">Chính sách bảo mật</a></li>
 									<li><a href="#">Đơn hàng và Trả hàng</a></li>
