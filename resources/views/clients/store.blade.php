@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Shop')
+@section('title', 'store')
 @section('content')
 <div id="breadcrumb" class="section">
 			<div class="container">
