@@ -81,7 +81,7 @@
 											<h5>TỔNG PHỤ: 68.000.000 VNĐ</h5> </div>
 										<div class="cart-btns">
 											<a href="#">Xem giỏ hàng</a>
-											<a href="{{route('chekout')}}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
+											<a href="{{route('checkout')}}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>

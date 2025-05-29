@@ -8,7 +8,7 @@
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Thanh toán</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="{{}}">Trang chủ</a></li>
+							<li><a href="{{route('home')}}">Trang chủ</a></li>
 							<li class="active">Thanh toán</li>
 						</ul>
 					</div>
