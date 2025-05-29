@@ -14,8 +14,9 @@ class ProductSeeder extends Seeder
     {
         Product::create([
             'name' => 'Laptop UltraBook ZenMax',
+            'description'=>'Đây là một đoạn văn bản mô tả mẫu, thường được sử dụng để trình bày bố cục sản phẩm. Nội dung này mô tả chi tiết về sản phẩm, các tính năng nổi bật và lợi ích mang lại cho người dùng.',
             'price' => 24500000, 
-            'img' => 'public/img/product01.png', 
+            'image' => 'public/img/product01.png', 
         ]);
     }
 }

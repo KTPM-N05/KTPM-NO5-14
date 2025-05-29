@@ -18,11 +18,10 @@
 							<div class="footer">
 								<h3 class="footer-title">Danh mục</h3>
 								<ul class="footer-links">
-									<li><a href="#">Ưu đãi hấp dẫn</a></li>
-									<li><a href="#">Máy tính xách tay</a></li>
-									<li><a href="#">Điện thoại thông minh</a></li>
-									<li><a href="#">Máy ảnh</a></li>
-									<li><a href="#">Phụ kiện</a></li>
+									<li><a href="{{route('laptop')}}">Máy tính xách tay</a></li>
+									<li><a href="{{route('telephone')}}">Điện thoại thông minh</a></li>
+									<li><a href="{{route('camera')}}">Máy ảnh</a></li>
+									<li><a href="{{route('product')}}">Phụ kiện</a></li>
 								</ul>
 							</div>
 						</div>
@@ -33,7 +32,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Thông tin</h3>
 								<ul class="footer-links">
-									<li><a href="{{route('home')}}">Về chúng tôi</a></li>
+									<li><a href="#">Về chúng tôi</a></li>
 									<li><a href="#">Liên hệ chúng tôi</a></li>
 									<li><a href="#">Chính sách bảo mật</a></li>
 									<li><a href="#">Đơn hàng và Trả hàng</a></li>
