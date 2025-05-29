@@ -45,7 +45,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Dịch vụ</h3>
 								<ul class="footer-links">
-									<li><a href="#">Tài khoản của tôi</a></li>
+									<li><a href="login">Tài khoản của tôi</a></li>
 									<li><a href="#">Xem giỏ hàng</a></li>
 									<li><a href="#">Danh sách yêu thích</a></li>
 									<li><a href="#">Theo dõi đơn hàng</a></li>

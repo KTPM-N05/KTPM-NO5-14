@@ -33,4 +33,5 @@ class PageController extends Controller
     public function laptop(){
         return view('latop'); //resources/views/laptop/blade.php
     }
+
 }
