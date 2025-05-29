@@ -22,6 +22,15 @@ class PageController extends Controller
         return view('checkout'); // resources/views/checkout.blade.php
     }
     public function blank(){
-        return view('blank');// resources/views/blank.blane.php
+        return view('blank');// resources/views/blank.blade.php
+    }
+    public function camera(){
+        return view('camera'); //resources/views/camera.blade.php
+    }
+    public function telephone(){
+        return view('telephone'); //resorces/views/telephone.blade.php
+    }
+    public function laptop(){
+        return view('latop'); //resources/views/laptop/blade.php
     }
 }

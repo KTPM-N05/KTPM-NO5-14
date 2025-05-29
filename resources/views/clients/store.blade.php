@@ -3,19 +3,6 @@
 @section('title', 'store')
 @section('content')
 <div id="breadcrumb" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="breadcrumb-tree">
-							<li><a href="index.html">Trang chủ</a></li>
-							<li><a href="store.html">Tất cả danh mục</a></li>
-							<li><a href="#">Phụ kiện</a></li>
-							<li class="active">Tai nghe (227 sản phẩm)</li>
-						</ul>
-					</div>
-				</div>
-				</div>
-			</div>
 		<div class="section">
 			<div class="container">
 				<div class="row">

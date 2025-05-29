@@ -101,12 +101,11 @@
 			<div class="container">
 				<div id="responsive-nav">
 					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="{{route('home')}}">Trang chủ</a></li>
-						<li><a href="#">Ưu đãi hấp dẫn</a></li>
+						<li><a href="{{route('home')}}">Trang chủ</a></li>
 						<li><a href="{{route('danhmuc')}}">Danh mục</a></li>
-						<li><a href="store.html">Máy tính xách tay</a></li>
-						<li><a href="store.html">Điện thoại thông minh</a></li>
-						<li><a href="store.html">Máy ảnh</a></li>
+						<li><a href="{{route('laptop')}}">Máy tính xách tay</a></li>
+						<li><a href="{{route('telephone')}}">Điện thoại thông minh</a></li>
+						<li><a href="{{route('camera')}}">Máy ảnh</a></li>
 						<li><a href="{{route('product')}}">Phụ kiện</a></li>
 					</ul>
 					</div>
