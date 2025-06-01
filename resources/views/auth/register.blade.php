@@ -63,6 +63,25 @@
             {{-- Form đăng ký --}}
             <form method="POST" action="{{ route('register') }}" id="registerForm" class="block">
                 @csrf
+
+                <!-- Name -->
+                <div class="mb-6">
+                    <label for="name" class="mb-2 block text-sm font-medium text-white">Họ và tên</label>
+                    <div class="relative">
+                        <div
+                            class="absolute inset-y-0 left-0 flex h-full w-10 items-center justify-center text-white/70">
+                            <i class="ri-user-line"></i>
+                        </div>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
+                            class="rounded-button focus:ring-primary/50 focus:border-primary w-full border border-white/20 bg-white/10 py-3 pl-10 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2"
+                            placeholder="Nhập họ và tên của bạn" required autofocus />
+                    </div>
+                    @error('name')
+                    <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Email -->
                 <div class="mb-6">
                     <label for="email" class="mb-2 block text-sm font-medium text-white">Email</label>
                     <div class="relative">
@@ -72,13 +91,14 @@
                         </div>
                         <input type="email" id="email" name="email" value="{{ old('email') }}"
                             class="rounded-button focus:ring-primary/50 focus:border-primary w-full border border-white/20 bg-white/10 py-3 pl-10 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2"
-                            placeholder="Nhập email của bạn" required autofocus />
+                            placeholder="Nhập email của bạn" required />
                     </div>
                     @error('email')
                     <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
 
+                <!-- Password -->
                 <div class="mb-6">
                     <label for="password" class="mb-2 block text-sm font-medium text-white">Mật khẩu</label>
                     <div class="relative">
@@ -99,6 +119,7 @@
                     @enderror
                 </div>
 
+                <!-- Password Confirmation -->
                 <div class="mb-6">
                     <label for="password_confirmation" class="mb-2 block text-sm font-medium text-white">Xác nhận mật khẩu</label>
                     <div class="relative">
