@@ -7,37 +7,37 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function index() {
-        return view('index'); // resources/views/index.blade.php
+        return view('clients.index'); // resources/views/index.blade.php
     }
 
     public function store() {
-        return view('store'); // resources/views/store.blade.php
+        return view('clients.store'); // resources/views/store.blade.php
     }
 
     public function product() {
-        return view('product'); // resources/views/product.blade.php
+        return view('clients.product'); // resources/views/product.blade.php
     }
 
     public function checkout() {
-        return view('checkout'); // resources/views/checkout.blade.php
+        return view('clients.checkout'); // resources/views/checkout.blade.php
     }
     public function blank(){
-        return view('blank');// resources/views/blank.blade.php
+        return view('clients.blank');// resources/views/blank.blade.php
     }
     public function camera(){
-        return view('camera'); //resources/views/camera.blade.php
+        return view('clients.camera'); //resources/views/camera.blade.php
     }
     public function telephone(){
-        return view('telephone'); //resorces/views/telephone.blade.php
+        return view('clients.telephone'); //resorces/views/telephone.blade.php
     }
     public function laptop(){
-        return view('latop'); //resources/views/laptop/blade.php
+        return view('clients.latop'); //resources/views/laptop/blade.php
     }
     public function login() {
-        return view('login'); // resources/views/login.blade.php
+        return view('clients.login'); // resources/views/login.blade.php
     }
     public function register() {
-        return view('register'); // resources/views/register.blade.php
+        return view('clients.register'); // resources/views/register.blade.php
     }
 
 }

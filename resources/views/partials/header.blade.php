@@ -102,7 +102,7 @@
 				<div id="responsive-nav">
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="{{route('home')}}">Trang chủ</a></li>
-						<li><a href="{{route('danhmuc')}}">Danh mục</a></li>
+						<li><a href="{{route('store')}}">Danh mục</a></li>
 						<li><a href="{{route('laptop')}}">Máy tính xách tay</a></li>
 						<li><a href="{{route('telephone')}}">Điện thoại thông minh</a></li>
 						<li><a href="{{route('camera')}}">Máy ảnh</a></li>
