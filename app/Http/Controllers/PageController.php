@@ -31,7 +31,7 @@ class PageController extends Controller
         return view('clients.telephone'); //resorces/views/telephone.blade.php
     }
     public function laptop(){
-        return view('clients.latop'); //resources/views/laptop/blade.php
+        return view('clients.laptop'); //resources/views/laptop/blade.php
     }
     public function login() {
         return view('clients.login'); // resources/views/login.blade.php
@@ -39,5 +39,7 @@ class PageController extends Controller
     public function register() {
         return view('clients.register'); // resources/views/register.blade.php
     }
-
+    public function dashboard() {
+        return view('dashboard'); // resources/views/dashboard.blade.php
+    }
 }

@@ -21,12 +21,12 @@
     <![endif]-->
 </head>
 <body>
-    @include('partials.headerlogout')
+    @include('partials.headerlogin')
     @yield('fullwidth')
    <div class="container">
         @yield('content')
     </div>
-    @include('partials.footerlogout')
+    @include('partials.footerlogin')
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
