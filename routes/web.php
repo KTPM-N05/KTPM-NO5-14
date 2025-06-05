@@ -5,6 +5,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+
 
 // Trang chủ
 Route::get('/', [PageController::class, 'index'])->name('home');
@@ -36,9 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
-
+// Route cho admin
+Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
 
 require __DIR__.'/auth.php';

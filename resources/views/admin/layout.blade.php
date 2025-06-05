@@ -8,6 +8,8 @@
   <!-- AdminLTE 4 CSS -->
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+   <link type="text/css" rel="stylesheet" href="{{ asset('css/my_style.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 
