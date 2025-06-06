@@ -4,21 +4,49 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
 
+// ------------------------------
+// Public Routes (không cần đăng nhập)
+// ------------------------------
 // Trang chủ
 Route::get('/', [PageController::class, 'index'])->name('home');
+// Danh mục sản phẩm (nếu bạn có một trang tổng hợp danh mục riêng, nếu không có thể xóa)
+Route::get('/danh-muc', [DanhMucController::class, 'index'])->name('danhmuc');
 
-// Các trang sản phẩm
-Route::get('/store', [PageController::class, 'store'])->name('store');
-Route::get('/product', [PageController::class, 'product'])->name('product');
+// Cửa hàng chung (liệt kê tất cả sản phẩm hoặc sản phẩm theo bộ lọc)
+Route::get('/store', [StoreController::class, 'index'])->name('store.index');
+
+// Trang danh mục cụ thể (chuyển hướng về trang /store với tham số category)
+Route::redirect('/laptop', '/store?category=laptop')->name('laptop');
+Route::redirect('/telephone', '/store?category=dien-thoai')->name('telephone');
+Route::redirect('/camera', '/store?category=may-anh')->name('camera');
+Route::redirect('/phu-kien', '/store?category=phu-kien')->name('accessories');
+
+// **CHI TIẾT SẢN PHẨM: Đảm bảo route này nằm Ở TRÊN CÙNG để tránh xung đột với các route khác nếu có tiền tố giống nhau.**
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+// **XÓA HOẶC COMMENT DÒNG NÀY ĐI:**
+// Route::get('/product', [PageController::class, 'product'])->name('product');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+
+// Các trang tĩnh khác
 Route::get('/checkout', [PageController::class, 'checkout'])->name('checkout');
 Route::get('/blank', [PageController::class, 'blank'])->name('blank');
-Route::get('/laptop', [PageController::class, 'laptop'])->name('laptop'); // sửa typo
-Route::get('/telephone', [PageController::class, 'telephone'])->name('telephone');
-Route::get('/camera', [PageController::class, 'camera'])->name('camera');
+
 
 // Auth routes
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -38,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 // Route cho admin
 Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
 

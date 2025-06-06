@@ -21,7 +21,7 @@
 									<li><a href="{{route('laptop')}}">Máy tính xách tay</a></li>
 									<li><a href="{{route('telephone')}}">Điện thoại thông minh</a></li>
 									<li><a href="{{route('camera')}}">Máy ảnh</a></li>
-									<li><a href="{{route('product')}}">Phụ kiện</a></li>
+									<li><a href="{{route('phukienphukien')}}">Phụ kiện</a></li>
 								</ul>
 							</div>
 						</div>
