@@ -6,18 +6,19 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class StoreController extends Controller // Đảm bảo tên class là StoreController
+class StoreController extends Controller
 {
     public function index(Request $request)
     {
         $productsQuery = Product::query();
+        $currentCategory = null; // Khởi tạo biến $currentCategory
 
         // Lấy category từ request nếu có
         if ($request->has('category') && $request->category != '') {
             $categorySlug = $request->input('category');
-            $category = Category::where('slug', $categorySlug)->first();
-            if ($category) {
-                $productsQuery->where('category_id', $category->id);
+            $currentCategory = Category::where('slug', $categorySlug)->first(); // Gán vào $currentCategory
+            if ($currentCategory) {
+                $productsQuery->where('category_id', $currentCategory->id);
             }
         }
 
@@ -73,10 +74,11 @@ class StoreController extends Controller // Đảm bảo tên class là StoreCon
         // Lấy danh mục để hiển thị sidebar
         $categories = Category::withCount('products')->get();
 
-        return view('store', [
+        return view('clients.store', [ // Đảm bảo đúng tên view là 'clients.store'
             'products' => $products,
             'bestSellingProducts' => $bestSellingProducts,
             'categories' => $categories,
+            'currentCategory' => $currentCategory, // Truyền biến currentCategory vào view
         ]);
     }
 }

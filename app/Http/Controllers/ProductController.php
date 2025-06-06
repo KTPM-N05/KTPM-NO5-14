@@ -36,38 +36,54 @@ class ProductController extends Controller
             'long_description' => 'nullable|string', // Thêm validation cho long_description
             'details' => 'nullable|string',          // Thêm validation cho details
             'price' => 'required|numeric|min:0',
-            'old_price' => 'nullable|numeric|min:0|gte:price',
-            'stock' => 'required|integer|min:0',
-            'image_path' => 'nullable|string', // Hoặc 'image|mimes:jpeg,png,jpg,gif|max:2048' nếu upload file
-            'category_id' => 'nullable|exists:categories,id', // Đảm bảo category_id hợp lệ
-            'is_new' => 'boolean',
-            'discount_percentage' => 'nullable|integer|min:0|max:100',
-            'rating' => 'nullable|integer|min:0|max:5',
+            // ... và các validation khác
         ]);
 
-        // Xử lý tạo slug tự động trong Product Model (sẽ được thêm vào Product Model)
-        $product = Product::create($request->all());
+        // Xử lý upload ảnh nếu có
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public'); // Lưu vào storage/app/public/products
+        }
 
-        return redirect()->route('products.index')->with('success', 'Sản phẩm đã được tạo thành công!');
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'long_description' => $request->long_description,
+            'details' => $request->details,
+            'price' => $request->price,
+            'old_price' => $request->old_price,
+            'image_path' => $imagePath, // Lưu đường dẫn ảnh
+            'category_id' => $request->category_id,
+            'stock' => $request->stock,
+            'is_new' => $request->has('is_new'),
+            'discount_percentage' => $request->discount_percentage,
+            'rating' => $request->rating,
+            'sold_count' => $request->sold_count ?? 0,
+            'views_count' => $request->views_count ?? 0,
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'Sản phẩm đã tạo thành công!');
     }
 
-    // Hiển thị chi tiết sản phẩm
-    public function show(Product $product)
+    // PHƯƠNG THỨC HIỂN THỊ CHI TIẾT SẢN PHẨM: Đã sửa để dùng slug
+    public function show($slug)
     {
-        // Tăng views_count mỗi khi sản phẩm được xem
+        // Tìm sản phẩm theo slug
+        $product = Product::where('slug', $slug)->firstOrFail();
+
+        // Tăng lượt xem sản phẩm
         $product->increment('views_count');
 
-        // Lấy 4 sản phẩm liên quan (cùng danh mục, không phải sản phẩm hiện tại)
+        // Lấy sản phẩm liên quan (cùng danh mục, không phải sản phẩm hiện tại)
         $relatedProducts = Product::where('category_id', $product->category_id)
                                 ->where('id', '!=', $product->id)
-                                ->inRandomOrder() // Lấy ngẫu nhiên
-                                ->take(4)          // Lấy 4 sản phẩm liên quan
+                                ->inRandomOrder() // Hiển thị ngẫu nhiên
+                                ->take(4) // Lấy 4 sản phẩm liên quan
                                 ->get();
 
-        // Bạn có 3 file Blade cho chi tiết sản phẩm: show.blade.php, product.blade.php, product-detail.blade.php
-        // Tôi sẽ ưu tiên sử dụng 'product.blade.php' vì nó có vẻ đầy đủ hơn.
-        // Nếu bạn muốn dùng 'show.blade.php' hoặc 'product-detail.blade.php', hãy đổi tên view ở đây.
-        return view('product', compact('product', 'relatedProducts'));
+        // Trả về view 'clients.product' (hoặc 'product' nếu bạn giữ thư mục gốc cho views)
+        // và truyền dữ liệu sản phẩm, sản phẩm liên quan vào.
+        return view('clients.product', compact('product', 'relatedProducts'));
     }
 
     // Các phương thức khác cho quản lý sản phẩm (edit, update, destroy)
