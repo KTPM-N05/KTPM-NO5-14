@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str; // Import Str facade để tạo slug
@@ -89,3 +88,4 @@ class Product extends Model
     //     return $value ? asset('storage/' . $value) : asset('img/default-product.png');
     // }
 }
+

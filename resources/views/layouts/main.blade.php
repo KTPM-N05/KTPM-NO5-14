@@ -15,18 +15,30 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+<<<<<<< HEAD
     <!--[if lt IE 9]>
+=======
+    <!--[if lt IE 9]>   
+>>>>>>> 3f0c0263bbe65bf7560769edd502045988e2964c
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
+<<<<<<< HEAD
     @include('partials.header')
+=======
+    @include('partials.headerlogout')
+>>>>>>> 3f0c0263bbe65bf7560769edd502045988e2964c
     @yield('fullwidth')
    <div class="container">
         @yield('content')
     </div>
+<<<<<<< HEAD
     @include('partials.footer')
+=======
+    @include('partials.footerlogout')
+>>>>>>> 3f0c0263bbe65bf7560769edd502045988e2964c
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>

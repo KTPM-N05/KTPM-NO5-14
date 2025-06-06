@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -274,4 +275,4 @@
             <div class="h-14.5 hidden lg:block"></div>
         @endif
     </body>
-</html>
+=======

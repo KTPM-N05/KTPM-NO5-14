@@ -171,7 +171,11 @@
 								</div>
 							</div>
 						</div>
+<<<<<<< HEAD
 						</div>
+=======
+					</div>
+>>>>>>> 3f0c0263bbe65bf7560769edd502045988e2964c
 					<div id="store" class="col-md-9">
 						<div class="store-filter clearfix">
 							<div class="store-sort">
@@ -489,6 +493,11 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
+=======
+		</div>
+	</div>
+>>>>>>> 3f0c0263bbe65bf7560769edd502045988e2964c
 		<div id="newsletter" class="section">
 			<div class="container">
 				<div class="row">

@@ -27,7 +27,6 @@ return new class extends Migration
             // $table->boolean('is_new')->default(false);
             // $table->integer('discount_percentage')->nullable();
             // $table->float('rating')->nullable();
-
             $table->timestamps();
         });
     }
@@ -36,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('products');
     }
-};
+}
