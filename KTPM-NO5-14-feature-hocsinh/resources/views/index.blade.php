@@ -8,7 +8,8 @@
 		<div class="row"> 
 			<div class="shop"> 
 				<div class="shop-img"> 
-					<img src="./img/shop01.png" alt="Bộ sưu tập máy tính xách tay">
+					<img src="{{ asset('storage/products/shop03.png') }}" alt="Bộ sưu tập máy tính xách tay">
+
 				</div>
 				<div class="shop-body">
 					<h3>Bộ sưu tập<br>Máy tính xách tay</h3>
@@ -19,7 +20,7 @@
 		<div class="col-md-4 col-xs-6">
 			<div class="shop">
 				<div class="shop-img">
-					<img src="./img/shop03.png" alt="Bộ sưu tập phụ kiện">
+					<img src="{{ asset('storage/products/shop03.png') }}" alt="Bộ sưu tập phụ kiện">
 				</div>
 				<div class="shop-body">
 					<h3>Bộ sưu tập<br>Phụ kiện</h3>
@@ -30,7 +31,7 @@
 		<div class="col-md-4 col-xs-6">
 			<div class="shop">
 				<div class="shop-img">
-					<img src="./img/shop02.png" alt="Bộ sưu tập máy ảnh">
+					<img src="{{ asset('storage/products/shop02.png') }}" alt="Bộ sưu tập điện thoại">
 				</div>
 				<div class="shop-body">
 					<h3>Bộ sưu tập<br>Điện thoại</h3>
