@@ -61,9 +61,26 @@ class PageController extends Controller
         return view('clients.categories', compact('categories'));
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
-        return view('clients.checkout');
+        $cartItemIds = collect(explode(',', $request->query('cart_items', '')))->filter();
+        $total = $request->query('total', 0);
+        $selectedCartItems = collect();
+        $cartCount = 0;
+        if (auth()->check()) {
+            $cartCount = \App\Models\CartItem::where('user_id', auth()->id())->sum('quantity');
+        }
+        if ($cartItemIds->count() > 0 && auth()->check()) {
+            $selectedCartItems = \App\Models\CartItem::with('product')
+                ->where('user_id', auth()->id())
+                ->whereIn('id', $cartItemIds)
+                ->get();
+        }
+        return view('clients.checkout', [
+            'selectedCartItems' => $selectedCartItems,
+            'selectedTotal' => $total,
+            'cartCount' => $cartCount
+        ]);
     }
 
     public function blank()

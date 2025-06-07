@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str; // Import Str facade để tạo slug
@@ -35,6 +36,12 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    // Định nghĩa mối quan hệ với Brand
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
     // Tự động tạo slug khi tạo hoặc cập nhật sản phẩm
     // Đây là một cách để đảm bảo slug luôn được tạo và duy nhất.
     protected static function boot()
@@ -46,8 +53,8 @@ class Product extends Model
             $product->slug = Str::slug($product->name);
             // Đảm bảo slug là duy nhất
             $latestSlug = static::where('slug', 'like', $product->slug . '%')
-                                 ->latest('id')
-                                 ->value('slug');
+                ->latest('id')
+                ->value('slug');
             if ($latestSlug) {
                 $numbers = explode('-', $latestSlug);
                 $lastNumber = end($numbers);
@@ -65,9 +72,9 @@ class Product extends Model
             if ($product->isDirty('name')) {
                 $product->slug = Str::slug($product->name);
                 $latestSlug = static::where('slug', 'like', $product->slug . '%')
-                                     ->where('id', '!=', $product->id) // Loại trừ sản phẩm hiện tại
-                                     ->latest('id')
-                                     ->value('slug');
+                    ->where('id', '!=', $product->id) // Loại trừ sản phẩm hiện tại
+                    ->latest('id')
+                    ->value('slug');
                 if ($latestSlug) {
                     $numbers = explode('-', $latestSlug);
                     $lastNumber = end($numbers);
@@ -88,4 +95,3 @@ class Product extends Model
     //     return $value ? asset('storage/' . $value) : asset('img/default-product.png');
     // }
 }
-

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -33,9 +34,9 @@ class StoreController extends Controller
         // Xử lý tìm kiếm
         if ($request->has('search') && $request->search != '') {
             $searchTerm = $request->input('search');
-            $productsQuery->where(function($query) use ($searchTerm) {
+            $productsQuery->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
             });
         }
 
@@ -74,11 +75,38 @@ class StoreController extends Controller
         // Lấy danh mục để hiển thị sidebar
         $categories = Category::withCount('products')->get();
 
-        return view('clients.store', [ // Đảm bảo đúng tên view là 'clients.store'
+        // Lọc theo brand
+        $brands = Brand::all();
+        if ($request->has('brand') && $request->brand != '') {
+            $brandSlug = $request->input('brand');
+            $currentBrand = Brand::where('slug', $brandSlug)->first();
+            if ($currentBrand) {
+                $productsQuery->where('brand_id', $currentBrand->id);
+            }
+        } else {
+            $currentBrand = null;
+        }
+
+        // Nếu là AJAX request, chỉ trả về partial HTML danh sách sản phẩm
+        if ($request->ajax()) {
+            return response()->view('clients.store', [
+                'products' => $products,
+                'bestSellingProducts' => $bestSellingProducts,
+                'categories' => $categories,
+                'brands' => $brands,
+                'currentCategory' => $currentCategory,
+                'currentBrand' => $currentBrand,
+            ]);
+        }
+
+        // Trả về view đầy đủ nếu không phải AJAX
+        return view('clients.store', [
             'products' => $products,
             'bestSellingProducts' => $bestSellingProducts,
             'categories' => $categories,
-            'currentCategory' => $currentCategory, // Truyền biến currentCategory vào view
+            'brands' => $brands,
+            'currentCategory' => $currentCategory,
+            'currentBrand' => $currentBrand,
         ]);
     }
 }

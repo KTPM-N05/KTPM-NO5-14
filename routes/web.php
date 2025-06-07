@@ -70,4 +70,12 @@ Route::middleware('auth')->group(function () {
 // Route cho admin
 Route::get('/admin', [AdminController::class, 'login'])->name('admin.login');
 
-require __DIR__.'/auth.php';
+// Route cho giỏ hàng
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::put('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+// AJAX Mini Cart (trả về partial HTML và badge số lượng)
+Route::get('/cart/minicart', [CartController::class, 'getMiniCart'])->name('cart.minicart');
+
+require __DIR__ . '/auth.php';

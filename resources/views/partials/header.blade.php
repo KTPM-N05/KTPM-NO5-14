@@ -47,44 +47,13 @@
                             </a>
                         </div>
                         <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <a href="{{ route('cart.index') }}" style="position:relative;">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Giỏ hàng của bạn</span>
-                                <div class="qty">3</div>
+                                @if(isset($cartCount) && $cartCount > 0)
+                                    <div class="qty" style="position:absolute;top:-8px;right:-8px;background:#d10024;color:#fff;border-radius:50%;padding:2px 7px;font-size:13px;min-width:22px;text-align:center;">{{ $cartCount }}</div>
+                                @endif
                             </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{ asset('img/product01.png') }}" alt="Laptop UltraBook ZenMax">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">Laptop UltraBook ZenMax</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>24.500.000 VNĐ</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{ asset('img/product02.png') }}" alt="Smartphone Galaxy Pro">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">Smartphone Galaxy Pro</a></h3>
-                                            <h4 class="product-price"><span class="qty">2x</span>21.750.000 VNĐ</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>3 sản phẩm đã chọn</small>
-                                    <h5>TỔNG PHỤ: 68.000.000 VNĐ</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="{{ route('cart.index') }}">Xem giỏ hàng</a>
-                                    <a href="{{ route('checkout') }}">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
                         </div>
                         <div class="menu-toggle">
                             <a href="#">

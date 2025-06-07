@@ -35,8 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('products');
     }
-}<<<<<<< HEAD
-// code của bạn
-=======
- // code trên remote
->>>>>>> 7d3324fb88d344dcde56a6441990913641a8192f
+};

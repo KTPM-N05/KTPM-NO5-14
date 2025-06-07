@@ -139,28 +139,31 @@
 						<div><strong>TẠM TÍNH</strong></div>
 					</div>
 					<div class="order-products">
-						<div class="order-col product-widget-checkout">
-							<div class="product-img-checkout">
-								<img src="./img/product01.png" alt="Laptop UltraBook ZenMax">
+						@if(isset($selectedCartItems) && count($selectedCartItems) > 0)
+							@foreach($selectedCartItems as $item)
+							<div class="order-col product-widget-checkout">
+								<div class="product-img-checkout">
+									<img src="{{ asset('storage/' . $item->product->image_path) }}" alt="{{ $item->product->name }}" style="max-width:60px;">
+								</div>
+								<div class="product-body-checkout">
+									<div class="product-name">{{ $item->quantity }}x {{ $item->product->name }}</div>
+									<div class="product-price-checkout">{{ number_format($item->product->price * $item->quantity) }} VNĐ</div>
+									@if($item->product->color)
+										<div style="font-size:13px;">Màu sắc: <span style="font-weight:600">{{ $item->product->color }}</span></div>
+									@endif
+									@if($item->product->configuration)
+										<div style="font-size:13px;">Cấu hình: <span style="font-weight:600">{{ $item->product->configuration }}</span></div>
+									@endif
+								</div>
 							</div>
-							<div class="product-body-checkout">
-								<div class="product-name">1x Laptop UltraBook ZenMax</div>
-								<div class="product-price-checkout">24.500.000 VNĐ</div>
-							</div>
-						</div>
-						<div class="order-col product-widget-checkout">
-							<div class="product-img-checkout">
-								<img src="./img/product02.png" alt="Smartphone Galaxy Pro">
-							</div>
-							<div class="product-body-checkout">
-								<div class="product-name">2x Smartphone Galaxy Pro</div>
-								<div class="product-price-checkout">43.500.000 VNĐ</div>
-							</div>
-						</div>
+							@endforeach
+						@else
+							<div>Không có sản phẩm nào được chọn.</div>
+						@endif
 					</div>
 					<div class="form-group">
 						<input class="input" type="text" name="discount-code" placeholder="Nhập mã giảm giá">
-						<button class="primary-btn" style="margin-top:10px; width:100%;" id="apply-discount-btn">Áp
+						<button class="primary-btn" style="margin-top:10px; width:100%" id="apply-discount-btn">Áp
 							dụng</button>
 					</div>
 					<div class="order-col">
@@ -169,7 +172,7 @@
 					</div>
 					<div class="order-col">
 						<div><strong>TỔNG CỘNG</strong></div>
-						<div><strong class="order-total">68.000.000 VNĐ</strong></div>
+						<div><strong class="order-total" id="checkout-total">{{ number_format($selectedTotal) }} VNĐ</strong></div>
 					</div>
 				</div>
 				<div class="payment-method">
@@ -260,4 +263,3 @@
 			</div>
 
 @endsection
-		

@@ -63,7 +63,8 @@
                 <div class="row">
                     <div class="products-slick" data-nav="#slick-nav-1">
                         @foreach($newProducts as $product)
-                        <div class="product">
+                        <div class="product" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                                 @if($product->is_new)
@@ -85,10 +86,10 @@
                                 <div class="product-rating">
                                     @for ($i = 0; $i < $product->rating; $i++)
                                         <i class="fa fa-star"></i>
-                                    @endfor
-                                    @for ($i = $product->rating; $i < 5; $i++)
-                                        <i class="fa fa-star-o"></i>
-                                    @endfor
+                                        @endfor
+                                        @for ($i = $product->rating; $i < 5; $i++)
+                                            <i class="fa fa-star-o"></i>
+                                            @endfor
                                 </div>
                                 <div class="product-btns">
                                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">thêm vào danh sách yêu thích</span></button>
@@ -97,7 +98,12 @@
                                 </div>
                             </div>
                             <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
+                                <form action="{{ route('cart.add') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
+                                </form>
                             </div>
                         </div>
                         @endforeach
@@ -162,7 +168,8 @@
                 <div class="products-widget-slick" data-nav="#slick-nav-2">
                     <div>
                         @foreach($widgetProducts1 as $product)
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>
@@ -177,7 +184,8 @@
                     </div>
                     <div>
                         @foreach($widgetProducts2 as $product)
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>
@@ -203,7 +211,8 @@
                 <div class="products-widget-slick" data-nav="#slick-nav-3">
                     <div>
                         @foreach($widgetProducts3 as $product)
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>
@@ -218,7 +227,8 @@
                     </div>
                     <div>
                         @foreach($widgetProducts4 as $product)
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>
@@ -246,7 +256,8 @@
                 <div class="products-widget-slick" data-nav="#slick-nav-5">
                     <div>
                         @foreach($widgetProducts5 as $product)
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>
@@ -262,7 +273,8 @@
                     <div>
                         {{-- Vòng lặp thứ hai cho topSellingProducts, đảm bảo biến $product được dùng đúng --}}
                         @foreach($topSellingProducts->take(3) as $product) {{-- Lấy 3 sản phẩm đầu tiên từ topSellingProducts --}}
-                        <div class="product-widget">
+                        <div class="product-widget" style="position:relative">
+                            <a href="{{ route('products.show', $product->slug) }}" class="stretched-link" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;"></a>
                             <div class="product-img">
                                 <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
                             </div>

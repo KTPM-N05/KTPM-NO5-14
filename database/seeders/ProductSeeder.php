@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +26,14 @@ class ProductSeeder extends Seeder
         $cameraCategory = Category::where('slug', 'may-anh')->first()->id ?? null; // Sửa slug
         $accessoriesCategory = Category::where('slug', 'phu-kien')->first()->id ?? null;
 
+        $dellBrand = Brand::where('slug', 'dell')->first()->id ?? null;
+        $samsungBrand = Brand::where('slug', 'samsung')->first()->id ?? null;
+        $lgBrand = Brand::where('slug', 'lg')->first()->id ?? null;
+        $sonyBrand = Brand::where('slug', 'sony')->first()->id ?? null;
+        $appleBrand = Brand::where('slug', 'apple')->first()->id ?? null;
+        $htcBrand = Brand::where('slug', 'htc')->first()->id ?? null;
+        $xiaomiBrand = Brand::where('slug', 'xiaomi')->first()->id ?? null;
+
         // Lưu ý: Đảm bảo các slug bạn tìm kiếm (laptop, dien-thoai, may-anh, phu-kien)
         // khớp với slugs được tạo trong CategorySeeder.
 
@@ -42,6 +51,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Đây là mô tả chi tiết hơn về Laptop Dell XPS 15 với CPU i7 thế hệ 12, RAM 16GB, SSD 512GB NVMe.',
                 'details' => 'CPU: Intel Core i7-12700H, RAM: 16GB, SSD: 512GB NVMe, Màn hình: 15.6 inch FHD+',
                 'category_id' => $laptopCategory,
+                'brand_id' => $dellBrand ?? $samsungBrand, // ví dụ, bạn có thể thêm Dell vào BrandSeeder nếu muốn
                 'slug' => 'laptop-dell-xps-15',
                 'sold_count' => 15,
                 'views_count' => 120,
@@ -59,6 +69,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Mẫu iPhone cao cấp với chip A15 Bionic, màn hình Super Retina XDR ProMotion, camera chuyên nghiệp.',
                 'details' => 'Chip: A15 Bionic, Màn hình: 6.1 inch Super Retina XDR ProMotion, Camera: Ba camera 12MP',
                 'category_id' => $telephoneCategory,
+                'brand_id' => $appleBrand,
                 'slug' => 'dien-thoai-iphone-13-pro', // Sửa slug
                 'sold_count' => 25,
                 'views_count' => 200,
@@ -76,6 +87,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Chất lượng âm thanh tuyệt vời với công nghệ chống ồn hàng đầu thế giới, thời lượng pin dài.',
                 'details' => 'Loại: Over-ear, Kết nối: Bluetooth 5.0, Chống ồn: Có, Thời lượng pin: 30 giờ',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => $sonyBrand,
                 'slug' => 'tai-nghe-sony-wh-1000xm4',
                 'sold_count' => 30,
                 'views_count' => 150,
@@ -93,6 +105,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Khả năng quay video 8K, chụp liên tục 20fps, cảm biến 45MP, hệ thống AF tiên tiến.',
                 'details' => 'Cảm biến: Full-frame CMOS 45MP, Video: 8K, Chụp liên tục: 20fps, AF: Dual Pixel CMOS AF II',
                 'category_id' => $cameraCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'may-anh-canon-eos-r5', // Sửa slug
                 'sold_count' => 5,
                 'views_count' => 80,
@@ -110,6 +123,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Thiết kế xoay gập 360 độ, màn hình cảm ứng, hiệu năng mạnh mẽ cho công việc và giải trí.',
                 'details' => 'CPU: Intel Core i7, RAM: 16GB, SSD: 1TB NVMe, Màn hình: 13.3 inch FHD cảm ứng',
                 'category_id' => $laptopCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'laptop-hp-spectre-x360',
                 'sold_count' => 12,
                 'views_count' => 90,
@@ -127,6 +141,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Thiết kế nhỏ gọn, âm thanh bass mạnh mẽ, khả năng chống nước IPX7, phù hợp cho mọi cuộc vui.',
                 'details' => 'Công suất: 20W RMS, Chống nước: IPX7, Thời lượng pin: 12 giờ, Kết nối: Bluetooth 4.2',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'loa-jbl-flip-5',
                 'sold_count' => 40,
                 'views_count' => 180,
@@ -144,6 +159,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Camera ấn tượng với Space Zoom 100x, bút S Pen tích hợp, hiệu năng mạnh mẽ từ chip Snapdragon.',
                 'details' => 'Chip: Snapdragon 8 Gen 1, Màn hình: 6.8 inch Dynamic AMOLED 2X, Camera: 108MP chính',
                 'category_id' => $telephoneCategory,
+                'brand_id' => $samsungBrand,
                 'slug' => 'dien-thoai-samsung-galaxy-s22-ultra', // Sửa slug
                 'sold_count' => 20,
                 'views_count' => 250,
@@ -161,6 +177,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Màn hình lớn và bền bỉ hơn, sạc nhanh, các tính năng sức khỏe tiên tiến.',
                 'details' => 'Màn hình: Always-On Retina, Chống nước: 50m, Cảm biến: ECG, SpO2, Sạc nhanh: Có',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => $appleBrand,
                 'slug' => 'apple-watch-series-7',
                 'sold_count' => 18,
                 'views_count' => 110,
@@ -178,6 +195,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Thiết kế siêu nhẹ, bền bỉ, bảo mật cao và hiệu suất vượt trội cho công việc.',
                 'details' => 'CPU: Intel Core i7, RAM: 16GB, SSD: 1TB PCIe Gen4, Màn hình: 14 inch QHD+',
                 'category_id' => $laptopCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'laptop-lenovo-thinkpad-x1-carbon',
                 'sold_count' => 10,
                 'views_count' => 85,
@@ -195,6 +213,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Trải nghiệm Android mượt mà, camera ấn tượng với Tensor chip.',
                 'details' => 'Chip: Google Tensor G2, Màn hình: 6.3 inch OLED, Camera: 50MP chính, Chống nước: IP68',
                 'category_id' => $telephoneCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'dien-thoai-google-pixel-7', // Sửa slug
                 'sold_count' => 22,
                 'views_count' => 170,
@@ -212,6 +231,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Thiết kế hoài cổ, chất lượng hình ảnh xuất sắc với cảm biến X-Trans CMOS 5 HR.',
                 'details' => 'Cảm biến: APS-C X-Trans CMOS 5 HR 40.2MP, Video: 6.2K/30p, IBIS: 5 trục',
                 'category_id' => $cameraCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'may-anh-fujifilm-x-t5', // Sửa slug
                 'sold_count' => 7,
                 'views_count' => 95,
@@ -229,6 +249,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Tăng tốc độ khởi động và tải ứng dụng với hiệu suất đọc/ghi vượt trội.',
                 'details' => 'Dung lượng: 1TB, Giao diện: PCIe Gen3.0 x4, Tốc độ đọc: 3500 MB/s, Tốc độ ghi: 3300 MB/s',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'ssd-samsung-970-evo-plus-1tb',
                 'sold_count' => 50,
                 'views_count' => 300,
@@ -246,6 +267,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'CPU AMD Ryzen và GPU NVIDIA GeForce RTX, màn hình tần số quét cao, thiết kế độc đáo.',
                 'details' => 'CPU: AMD Ryzen 9, GPU: NVIDIA GeForce RTX 3060, Màn hình: 14 inch QHD 120Hz',
                 'category_id' => $laptopCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'laptop-asus-rog-zephyrus-g14',
                 'sold_count' => 8,
                 'views_count' => 70,
@@ -263,6 +285,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Snapdragon 8 Gen 1, sạc SuperVOOC 80W, camera Hasselblad.',
                 'details' => 'Chip: Snapdragon 8 Gen 1, Màn hình: 6.7 inch Fluid AMOLED, Sạc: 80W SuperVOOC',
                 'category_id' => $telephoneCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'dien-thoai-oneplus-10-pro', // Sửa slug
                 'sold_count' => 15,
                 'views_count' => 130,
@@ -280,6 +303,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Cảm biến 33MP, quay video 4K 60p, hệ thống AF tiên tiến.',
                 'details' => 'Cảm biến: Full-frame Exmor R CMOS 33MP, Video: 4K 60p, AF: 759 điểm AF',
                 'category_id' => $cameraCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'may-anh-sony-alpha-a7-iv', // Sửa slug
                 'sold_count' => 3,
                 'views_count' => 60,
@@ -297,6 +321,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Switch GX có thể thay nóng, đèn RGB LIGHTSYNC, thiết kế nhỏ gọn.',
                 'details' => 'Switch: GX Clicky/Tactile/Linear, Đèn: RGB, Kết nối: USB',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'ban-phim-logitech-g-pro-x',
                 'sold_count' => 35,
                 'views_count' => 190,
@@ -314,6 +339,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Thiết kế cao cấp, hiệu năng ổn định cho công việc văn phòng và giải trí.',
                 'details' => 'CPU: Intel Core i5, RAM: 8GB, SSD: 256GB, Màn hình: 13.5 inch PixelSense cảm ứng',
                 'category_id' => $laptopCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'laptop-microsoft-surface-laptop-5',
                 'sold_count' => 11,
                 'views_count' => 88,
@@ -331,6 +357,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Snapdragon 8 Gen 1, sạc nhanh 120W, camera 50MP.',
                 'details' => 'Chip: Snapdragon 8 Gen 1, Màn hình: 6.73 inch AMOLED, Sạc: 120W HyperCharge',
                 'category_id' => $telephoneCategory,
+                'brand_id' => $xiaomiBrand,
                 'slug' => 'dien-thoai-xiaomi-12-pro', // Sửa slug
                 'sold_count' => 17,
                 'views_count' => 145,
@@ -348,6 +375,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Cảm biến 24.5MP, quay video 4K 60p, hai bộ xử lý EXPEED 6.',
                 'details' => 'Cảm biến: Full-frame BSI CMOS 24.5MP, Video: 4K 60p, ISO: 100-51200',
                 'category_id' => $cameraCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'may-anh-nikon-z6-ii', // Sửa slug
                 'sold_count' => 4,
                 'views_count' => 75,
@@ -365,6 +393,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Cảm biến quang học Focus+ 20K DPI, switch quang học, thiết kế công thái học.',
                 'details' => 'DPI: 20000, Switch: Quang học Razer, Nút: 8 nút có thể lập trình',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'chuot-gaming-razer-deathadder-v2', // Sửa slug
                 'sold_count' => 60,
                 'views_count' => 320,
@@ -382,6 +411,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Phù hợp cho học tập, làm việc văn phòng và giải trí nhẹ.',
                 'details' => 'CPU: Intel Core i5, RAM: 8GB, SSD: 512GB, Màn hình: 15.6 inch FHD',
                 'category_id' => $laptopCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'laptop-hp-pavilion-15',
                 'sold_count' => 20,
                 'views_count' => 100,
@@ -399,6 +429,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Hệ thống camera hợp tác với Zeiss, hiệu năng mạnh mẽ, sạc nhanh.',
                 'details' => 'Chip: Snapdragon 8 Gen 1, Màn hình: 6.78 inch AMOLED E5, Camera: Zeiss Optics',
                 'category_id' => $telephoneCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'dien-thoai-vivo-x80-pro', // Sửa slug
                 'sold_count' => 14,
                 'views_count' => 160,
@@ -416,6 +447,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Quay video 5.3K60, chống rung HyperSmooth 5.0, chống nước 10m.',
                 'details' => 'Video: 5.3K60, Ảnh: 27MP, Chống rung: HyperSmooth 5.0, Chống nước: 10m',
                 'category_id' => $cameraCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'may-anh-gopro-hero11-black', // Sửa slug
                 'sold_count' => 9,
                 'views_count' => 105,
@@ -433,6 +465,7 @@ class ProductSeeder extends Seeder
                 'long_description' => 'Điều khiển nhà thông minh, phát nhạc, tin tức, đặt báo thức.',
                 'details' => 'Trợ lý ảo: Alexa, Kết nối: Wi-Fi, Bluetooth, Âm thanh: Loa phía trước',
                 'category_id' => $accessoriesCategory,
+                'brand_id' => null, // Chưa xác định thương hiệu
                 'slug' => 'loa-thong-minh-amazon-echo-dot-5th-gen', // Sửa slug
                 'sold_count' => 70,
                 'views_count' => 400,
@@ -446,4 +479,3 @@ class ProductSeeder extends Seeder
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;'); // Bỏ dòng này
     }
 }
-
