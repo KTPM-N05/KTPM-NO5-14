@@ -49,16 +49,11 @@ Mô tả đối tượng phù hợp sử dụng dự án Laravel (ví dụ: sinh
 - Giao diện thân thiện và responsive.
 ## 🚀 Cài đặt & chạy thử
 
-```bash
-git clone https://github.com/deptrainhatgai/WEB-project.git
-cd cake-shop
+git clone linkgithub
 composer install
-cp .env.example .env
 php artisan key:generate
----
----
-
----
+php artisan migrate --seed
+php artisan serve
 
 
 ## Learning Laravel
