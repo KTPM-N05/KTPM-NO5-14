@@ -47,6 +47,14 @@ Mô tả đối tượng phù hợp sử dụng dự án Laravel (ví dụ: sinh
 - Một hệ thống thương mại điện tử cơ bản xây dựng bằng Laravel.
 - Phân quyền rõ ràng người dùng và quản trị viên.
 - Giao diện thân thiện và responsive.
+## 🚀 Cài đặt & chạy thử
+
+```bash
+git clone https://github.com/deptrainhatgai/WEB-project.git
+cd cake-shop
+composer install
+cp .env.example .env
+php artisan key:generate
 
 ---
 
