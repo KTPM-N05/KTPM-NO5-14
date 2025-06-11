@@ -57,7 +57,7 @@ Route::post('/register', [RegisterController::class, 'postRegister']);
 
 // Trang dashboard (có middleware auth)
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.main');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Nhóm route profile cần đăng nhập
