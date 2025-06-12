@@ -2,8 +2,13 @@
 
 @section('title', 'Dashboard')
 
+<div>
+    jfufsoijfncccccccc
+    mdakmdK
+    MDAMDLMD
 
 
+</div>
 @section('content')
 
 
