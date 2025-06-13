@@ -87,7 +87,17 @@ class ProductController extends Controller
         // và truyền dữ liệu sản phẩm, sản phẩm liên quan vào.
         return view('clients.product', compact('product', 'relatedProducts'));
     }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $products = Product::where('name', 'like', "%{$keyword}%")->get();
 
+        // Đã sửa: Trả về view 'clients.search-results'
+        return view('clients.search-results', [
+            'products' => $products,
+            'keyword' => $keyword
+        ]);
+    }
     // Các phương thức khác cho quản lý sản phẩm (edit, update, destroy)
     // public function edit(Product $product)
     // {
