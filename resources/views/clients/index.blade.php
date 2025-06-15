@@ -106,13 +106,13 @@
                                             VNĐ</del>@endif
                                     </h4>
                                     <div class="product-rating" style="margin-bottom:8px;">
-                                        @php $avgRating = $product->ratings->avg('rating'); @endphp
+                                        @php $avgRating = $product->averageRating(); @endphp
                                         @for($i = 1; $i <= 5; $i++) <i
                                             class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}" style="color:#ffc107;">
                                             </i>
                                             @endfor
                                             <span
-                                                style="color:#888;font-size:13px;margin-left:4px;">({{ $product->ratings->count() }})</span>
+                                                style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
                                     </div>
                                     <div class="product-btns mb-2" style="display:flex;gap:8px;">
                                         <button class="add-to-wishlist" style="background:transparent;border:none;"><i

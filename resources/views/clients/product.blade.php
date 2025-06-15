@@ -62,13 +62,18 @@
             <div>
                 <div class="product-rating">
                     @php
-                    $avgRating = $product->ratings->avg('rating');
+                    $avgRating = $product->averageRating(); // Sử dụng method mới
+                    $totalReviews = $product->totalReviewsCount(); // Tổng số đánh giá
+                    $reviewsCount = $product->reviews()->count(); // Số reviews
+                    $ratingsCount = $product->ratings()->count(); // Số ratings
                     @endphp
                     @for($i = 1; $i <= 5; $i++)
                         <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
-                        @endfor
+                    @endfor
                 </div>
-                <a class="review-link" href="#tab3">{{ $product->ratings->count() }} Đánh giá </a>
+                <a class="review-link" href="#tab3">
+                    {{ $totalReviews }} Đánh giá
+                </a>
             </div>
             <div>
                 <h3 class="product-price">{{ number_format($product->price) }} VNĐ <del class="product-old-price">{{ number_format($product->old_price) }} VNĐ</del></h3>
@@ -135,7 +140,7 @@
             <ul class="tab-nav">
                 <li class="active"><a data-toggle="tab" href="#tab1">Mô tả</a></li>
                 <li><a data-toggle="tab" href="#tab2">Chi tiết</a></li>
-                <li><a data-toggle="tab" href="#tab3">Đánh giá ({{ $product->ratings->count() }})</a></li>
+                <li><a data-toggle="tab" href="#tab3">Đánh giá ({{  $totalReviews  }})</a></li>
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane fade in active">
@@ -157,10 +162,10 @@
                         <div class="col-md-3">
                             <div id="rating">
                                 <div class="rating-avg">
-                                    <span>{{ number_format($product->ratings->avg('rating'), 1) }}</span>
+                                    <span>{{ number_format($product->averageRating(), 1) }}</span>
                                     <div class="rating-stars">
                                         @php
-                                        $avgRating = $product->ratings->avg('rating');
+                                        $avgRating = $product->averageRating(); // Dùng method thống nhất
                                         @endphp
                                         @for($i = 1; $i <= 5; $i++)
                                             <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
@@ -177,8 +182,11 @@
                                         </div>
                                         <div class="rating-progress">
                                             @php
-                                            $count = $product->ratings->where('rating', $i)->count();
-                                            $total = $product->ratings->count();
+                                            // Tính từ cả ratings và reviews
+                                            $ratingsCount = $product->ratings->where('rating', $i)->count();
+                                            $reviewsCount = $product->reviews->where('rating', $i)->count();
+                                            $count = $ratingsCount + $reviewsCount;
+                                            $total = $product->totalReviewsCount();
                                             $percent = $total > 0 ? ($count / $total) * 100 : 0;
                                             @endphp
                                             <div style="width: {{ $percent }}%;"></div>
@@ -192,6 +200,27 @@
                         <div class="col-md-6">
                             <div id="reviews">
                                 <ul class="reviews">
+                                    {{-- Hiển thị 5 reviews ngẫu nhiên từ dữ liệu mẫu --}}
+                                    @if($randomReviews && $randomReviews->count() > 0)
+                                        @foreach($randomReviews as $review)
+                                        <li>
+                                            <div class="review-heading">
+                                                <h5 class="name">{{ $review->user_name ?? 'Người dùng ẩn danh' }}</h5>
+                                                <p class="date">{{ \Carbon\Carbon::parse($review->created_at)->format('d M Y, g:i A') }}</p>
+                                                <div class="review-rating">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <i class="fa fa-star{{ $i <= $review->rating ? '' : '-o' }}"></i>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                            <div class="review-body">
+                                                <p>{{ $review->comment }}</p>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    @endif
+
+                                    {{-- Hiển thị ratings thực từ user (nếu có) --}}
                                     @forelse($product->ratings as $rating)
                                     <li>
                                         <div class="review-heading">
@@ -200,15 +229,17 @@
                                             <div class="review-rating">
                                                 @for($i = 1; $i <= 5; $i++)
                                                     <i class="fa fa-star{{ $i <= $rating->rating ? '' : '-o' }}"></i>
-                                                    @endfor
+                                                @endfor
                                             </div>
                                         </div>
                                         <div class="review-body">
-                                            <p>{{ $rating->review }}</p>
+                                            <p>{{ $rating->comment ?? 'Không có nhận xét' }}</p>
                                         </div>
                                     </li>
                                     @empty
-                                    <li>Chưa có đánh giá nào cho sản phẩm này</li>
+                                        @if(!$randomReviews || $randomReviews->count() == 0)
+                                        <li>Chưa có đánh giá nào cho sản phẩm này</li>
+                                        @endif
                                     @endforelse
                                 </ul>
                             </div>

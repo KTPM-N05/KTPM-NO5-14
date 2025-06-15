@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminAuth;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request; // Đảm bảo dòng này tồn tại hoặc thêm vào
 
 /*
 |--------------------------------------------------------------------------
@@ -59,8 +60,11 @@ Route::post('/login', [AuthController::class, 'postLogin']);
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register', [RegisterController::class, 'postRegister']);
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('user.main');
+Route::get('/dashboard', function (Request $request) { // Thêm Request $request
+    return view('user.main', [
+        'user' => $request->user(), // Truyền dữ liệu người dùng
+        'orders' => $request->user()->orders()->latest()->get(), // Thêm orders
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 // Profile (middleware auth)
 Route::middleware('auth')->group(function () {
@@ -87,7 +91,7 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])
 
 require __DIR__ . '/auth.php';
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\UserController; 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -147,4 +151,3 @@ Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
 Route::get('/admin', function () {
     return view('admin.welcome');
 })->name('admin.welcome');
-
