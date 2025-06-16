@@ -47,12 +47,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
     /**
      * Get the orders for the user.
      */
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+    public function wishlist()
+    {
+        return $this->belongsToMany(\App\Models\Product::class, 'wishlists', 'user_id', 'product_id')->withTimestamps();
     }
 }
