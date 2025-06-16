@@ -78,6 +78,9 @@
                                             <div class="col-md-3">
                                                 <span class="order-date">{{ $order->created_at->format('d/m/Y') }}</span>
                                             </div>
+                                            <div class="col-md-2">Add commentMore actions
+                                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">Xem chi tiết</a>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

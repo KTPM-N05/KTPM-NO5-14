@@ -52,6 +52,10 @@ Route::post('/checkout', [OrderController::class, 'placeOrder'])->name('checkout
 Route::get('/order-success', function() {
     return view('clients.order-success');
 })->name('order.success');
+
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
+
 // Đánh giá sản phẩm
 Route::post('/products/{id}/rating', [ProductController::class, 'postRating'])->name('products.rating')->middleware('auth');
 // Auth routes
