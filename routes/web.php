@@ -54,6 +54,9 @@ Route::get('/order-success', function() {
 })->name('order.success');
 
 Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+// Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
 
 
 // Đánh giá sản phẩm
@@ -75,6 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
 });
 
 
