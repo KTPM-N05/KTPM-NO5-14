@@ -55,6 +55,10 @@ Route::get('/order-success', function() {
 
 Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
+Route::get('/chinh-sach-bao-mat', [PageController::class, 'policy'])->name('policy');
+Route::get('/dieu-khoan-su-dung', [PageController::class, 'terms'])->name('terms');
+Route::get('/ve-chung-toi', [PageController::class, 'aboutUs'])->name('aboutUs');
+Route::get('/chinh-sach-bao-hanh-doi-tra-hang', [PageController::class, 'orderAndReturn'])->name('orderAndReturn');
 
 // Đánh giá sản phẩm
 Route::post('/products/{id}/rating', [ProductController::class, 'postRating'])->name('products.rating')->middleware('auth');
