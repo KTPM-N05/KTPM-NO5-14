@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
     {
 
         User::factory()->create([
-        'name' => 'Test User',
-        'email' => fake()->unique()->safeEmail(),
-    ]);
+            'name' => 'Test User',
+            'email' => fake()->unique()->safeEmail(),
+        ]);
+        // Thêm nhiều user mẫu để phục vụ review
+        User::factory(200)->create();
 
         // ✅ Quan trọng: Gọi theo thứ tự phù hợp
         // 1. Category và Brand trước (không phụ thuộc vào gì)
