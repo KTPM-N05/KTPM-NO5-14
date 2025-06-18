@@ -16,6 +16,11 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="{{ asset('css/oders.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/order.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
+
+
 
 </head>
 
