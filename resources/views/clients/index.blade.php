@@ -116,16 +116,15 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                             VNĐ</del>@endif
                                     </h4>
                                     <div class="product-rating" style="margin-bottom:8px;">
-                                        @php $avgRating = $product->ratings->avg('rating'); @endphp
+                                        @php $avgRating = $product->averageRating(); @endphp
                                         @for($i = 1; $i <= 5; $i++) <i
                                             class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}" style="color:#ffc107;">
                                             </i>
                                             @endfor
                                             <span
-                                                style="color:#888;font-size:13px;margin-left:4px;">({{ $product->ratings->count() }})</span>
+                                                style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
                                     </div>
-                                    <div class="product-btns mb-2"
-                                        style="display:flex;gap:8px;position:absolute;left:12px;bottom:12px;z-index:3;">
+                                    <div class="product-btns mb-2" style="display:flex;gap:8px;">
                                         <button class="add-to-wishlist wishlist-btn{{ $isWished ? ' added' : '' }}"
                                             data-product-id="{{ $product->id }}"
                                             style="background:transparent;border:none;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;position:relative;z-index:3;"
@@ -133,6 +132,12 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                             <i class="fa {{ $isWished ? 'fa-heart' : 'fa-heart-o' }} wishlist-icon"
                                                 style="color:#d10024;font-size:1.5rem;transition:color 0.2s;"></i>
                                         </button>
+                                        <button                                             style="background:transparent;border:none;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;position:relative;z-index:3;"
+ class="add-to-compare" style="background:transparent;border:none;"><i
+                                                class="fa fa-exchange" style="color:#1976d2;"></i></button>
+                                        <button                                             style="background:transparent;border:none;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;position:relative;z-index:3;"
+ class="quick-view" style="background:transparent;border:none;"><i
+                                                class="fa fa-eye" style="color:#222;"></i></button>
                                     </div>
                                 </div>
                                 <div class="add-to-cart" style="padding:0 24px 18px 24px;">
