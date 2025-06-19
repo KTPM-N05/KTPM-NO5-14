@@ -12,11 +12,11 @@
     <style>
       :where([class^="ri-"])::before { content: "\f3c2"; }
       body {
-        background-color: #1a1f2e;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Roboto', sans-serif;
+        background-color: #1a1c23;
       }
       .auth-container {
-        background-color: #22273a;
+        background-color: #24262d;
       }
       .logo {
         color: #e63946;
@@ -32,10 +32,10 @@
       }
       .input-field:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.3);
+        box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.3);
       }
       .primary-btn {
-        background-color: #e63946;
+        background-color: #dc2626;
         color: white;
         border: none;
         border-radius: 8px;
@@ -46,10 +46,10 @@
         transition: background-color 0.2s;
       }
       .primary-btn:hover {
-        background-color: #d62f3d;
+        background-color: #b91c1c;
       }
       .link {
-        color: #e63946;
+        color: #dc2626;
         text-decoration: none;
         cursor: pointer;
       }

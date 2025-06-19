@@ -11,18 +11,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" />
     <style>
       body {
-        background-color: #1a1f2e;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Roboto', sans-serif;
+        background-color: #1a1c23;
       }
       .auth-container {
-        background-color: #22273a;
+        background-color: #24262d;
       }
       .logo {
         color: #e63946;
         font-family: 'Pacifico', serif;
       }
       .primary-btn {
-        background-color: #e63946;
+        background-color: #dc2626;
         color: white;
         border: none;
         border-radius: 8px;
@@ -33,10 +33,10 @@
         transition: background-color 0.2s;
       }
       .primary-btn:hover {
-        background-color: #d62f3d;
+        background-color: #b91c1c;
       }
       .link {
-        color: #e63946;
+        color: #dc2626;
         text-decoration: none;
         cursor: pointer;
       }
