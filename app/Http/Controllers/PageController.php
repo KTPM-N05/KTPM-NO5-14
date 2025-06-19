@@ -77,6 +77,8 @@ class PageController extends Controller
         return view('clients.order-and-return');
     }
 
+
+    
     public function checkout(Request $request)
     {
         // Ưu tiên lấy sản phẩm từ wishlist nếu có product_ids

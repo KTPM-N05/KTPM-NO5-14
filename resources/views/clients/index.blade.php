@@ -133,35 +133,61 @@ if(auth()->check()) {
             <div class="col-md-12">
                 <div class="hot-deal">
                     <ul class="hot-deal-countdown">
-                        <li>
-                            <div>
-                                <h3>02</h3>
-                                <span>Ngày</span>
+                        <ul class="hot-deal-countdown" style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 0; list-style: none;">
+                        <li style="margin: 0;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #d10024 ; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <h3 id="days" style="margin: 0; font-size: 2em; color:rgb(18, 17, 17);">02</h3>
+                                <span style="font-size: 0.9em; color: rgb(18, 17, 17)55;">Ngày</span>
                             </div>
                         </li>
-                        <li>
-                            <div>
-                                <h3>10</h3>
-                                <span>Giờ</span>
+                        <li style="margin: 0;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #d10024; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <h3 id="hours" style="margin: 0; font-size: 2em; color:rgb(18, 17, 17);">10</h3>
+                                <span style="font-size: 0.9em; color: rgb(18, 17, 17);">Giờ</span>
                             </div>
                         </li>
-                        <li>
-                            <div>
-                                <h3>34</h3>
-                                <span>Phút</span>
+                        <li style="margin: 0;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #d10024; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <h3 id="minutes" style="margin: 0; font-size: 2em; color:rgb(18, 17, 17);">34</h3>
+                                <span style="font-size: 0.9em; color: rgb(18, 17, 17);">Phút</span>
                             </div>
                         </li>
-                        <li>
-                            <div>
-                                <h3>60</h3>
-                                <span>Giây</span>
+                        <li style="margin: 0;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background-color: #d10024; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <h3 id="seconds" style="margin: 0; font-size: 2em; color:rgb(18, 17, 17);">60</h3>
+                                <span style="font-size: 0.9em; color: #rgb(18, 17, 17);">Giây</span>
                             </div>
                         </li>
                     </ul>
+
                     <h2 class="text-uppercase">Deal hot tuần này</h2>
                     <p>Giảm giá tới 50%</p>
-                    <a class="primary-btn cta-btn" href="{{ route('store.index') }}">Mua ngay</a>
+                   <a class="primary-btn cta-btn" href="{{ route('hot.deals') }}">Mua ngay</a>
+                    <script>
+    const countdownDate = new Date();
+    countdownDate.setDate(countdownDate.getDate() + 2);
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(d).padStart(2, "0");
+        document.getElementById("hours").innerText = String(h).padStart(2, "0");
+        document.getElementById("minutes").innerText = String(m).padStart(2, "0");
+        document.getElementById("seconds").innerText = String(s).padStart(2, "0");
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
                 </div>
+                
             </div>
         </div>
     </div>

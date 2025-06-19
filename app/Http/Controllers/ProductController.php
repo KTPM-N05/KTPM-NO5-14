@@ -39,6 +39,8 @@ class ProductController extends Controller
             // ... và các validation khác
         ]);
 
+       
+
         // Xử lý upload ảnh nếu có
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -96,6 +98,17 @@ class ProductController extends Controller
             'products' => $products,
             'keyword' => $keyword
         ]);
+    }
+    public function showHotDeals()
+    {
+        // Lấy các sản phẩm có discount_percentage lớn hơn 0 và sắp xếp giảm dần
+        // Bạn có thể điều chỉnh số lượng sản phẩm hoặc điều kiện lọc (ví dụ: > 10%)
+        $hotDealsProducts = Product::where('discount_percentage', '>', 0)
+                                ->orderBy('discount_percentage', 'desc') // Sắp xếp theo phần trăm giảm giá giảm dần
+                                ->limit(20) // Lấy 20 sản phẩm có giảm giá cao nhất
+                                ->get();
+
+        return view('clients.hot_deals', compact('hotDealsProducts'));
     }
     // Các phương thức khác cho quản lý sản phẩm (edit, update, destroy)
     // public function edit(Product $product)
