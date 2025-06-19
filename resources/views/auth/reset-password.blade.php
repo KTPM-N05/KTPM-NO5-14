@@ -58,6 +58,22 @@
     </style>
   </head>
   <body class="min-h-screen flex items-center justify-center p-4">
+@if(session('reset_success'))
+  <div id="reset-success-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white rounded-lg p-8 text-center max-w-xs">
+      <h2 class="text-green-600 text-xl font-bold mb-4">Đặt lại mật khẩu thành công!</h2>
+      <p class="mb-6 text-gray-700">Bạn đã đặt lại mật khẩu thành công.</p>
+      <button id="close-modal-btn" class="primary-btn w-full">Đóng</button>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('close-modal-btn').onclick = function() {
+        window.location.href = "{{ route('login') }}";
+      };
+    });
+  </script>
+@endif
     <div class="auth-container w-full max-w-md rounded-lg p-8 shadow-lg">
       <div class="text-center mb-6">
         <h1 class="logo text-3xl mb-3">Electro</h1>
@@ -74,9 +90,15 @@
           @endforeach
         </div>
       @endif
+@if (session('status'))
+  <div class="mb-4 text-green-500 text-sm">
+    {{ session('status') }}
+  </div>
+@endif
 
-      <form method="POST" action="{{ route('password.update') }}">
+      <form method="POST" action="{{ route('password.store') }}">
         @csrf
+        {{-- @method('PUT') --}}
 
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
         <input type="hidden" name="email" value="{{ old('email', $request->email) }}">
@@ -122,6 +144,7 @@
               <i class="ri-eye-off-line"></i>
             </div>
           </button>
+          <div id="password-match-error" class="text-xs text-red-500 mt-1" style="display:none;"></div>
         </div>
 
         <div class="mb-6">
@@ -135,6 +158,7 @@
         </div>
       </form>
     </div>
+
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -152,6 +176,27 @@
               icon.className = "ri-eye-off-line";
             }
           });
+        });
+        // Kiểm tra mật khẩu khớp nhau và hiển thị lỗi dưới ô xác nhận
+        const form = document.querySelector('form');
+        const pw = document.getElementById('newPassword');
+        const pwc = document.getElementById('confirmPassword');
+        const errorDiv = document.getElementById('password-match-error');
+
+        form.addEventListener('submit', function(e) {
+          if (pw.value !== pwc.value) {
+            e.preventDefault();
+            errorDiv.textContent = 'Mật khẩu xác nhận không khớp!';
+            errorDiv.style.display = 'block';
+            pwc.focus();
+          } else {
+            errorDiv.style.display = 'none';
+          }
+        });
+        pwc.addEventListener('input', function() {
+          if (pw.value === pwc.value) {
+            errorDiv.style.display = 'none';
+          }
         });
       });
     </script>

@@ -1,4 +1,3 @@
-
 @extends('layouts.main')
 
 @section('title', 'dashboard user')
@@ -159,7 +158,7 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/checkout.js') }}"></script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Thêm hiệu ứng xuất hiện cho các card
             $('.dashboard-card').each(function(index) {
@@ -185,6 +184,6 @@
                 $(this).find('button[type="submit"]').html('<span class="loading-spinner"></span> Đang xử lý...');
             });
         });
-    </script>
+    </script> --}}
 @endsection
 
