@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('title', 'Chi tiết đơn hàng #' . $order->id)
 
 @section('content')
@@ -256,5 +255,6 @@ window.addEventListener('afterprint', function() {
     document.body.classList.remove('printing');
 });
 </script>
+
 
 @endsection
