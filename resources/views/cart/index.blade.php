@@ -176,10 +176,10 @@
                     <strong style="font-size:1.2rem;">Tổng cộng:</strong>
                     <strong style="color:#d10024;font-size:1.3rem;" id="selected-total">0 VNĐ</strong>
                 </div>
-                <form id="checkout-form" action="{{ route('checkout.placeOrder') }}" method="post"
+                <form id="checkout-form" action="{{ route('checkout') }}" method="get"
                     onsubmit="return submitCheckoutForm();">
                     @csrf
-                    <input type="hidden" name="selected_cart_items_ids" id="cart_items_input">
+                    <input type="hidden" name="cart_items" id="cart_items_input">
                     <input type="hidden" name="total_amount" id="total_input">
                     <button type="submit" class="btn btn-danger w-100"
                         style="border-radius:24px;font-size:1.1rem;font-weight:600;padding:12px 0;">Tiến hành đặt

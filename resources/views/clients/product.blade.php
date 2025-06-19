@@ -8,7 +8,8 @@ $wishlistIds = [];
 if(auth()->check()) {
 $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
 }
-$configurations = is_string($product->configurations) ? json_decode($product->configurations, true) : ($product->configurations ?? []);
+$configurations = is_string($product->configurations) ? json_decode($product->configurations, true) :
+($product->configurations ?? []);
 $colors = is_string($product->colors) ? json_decode($product->colors, true) : ($product->colors ?? []);
 $sizes = is_string($product->sizes) ? json_decode($product->sizes, true) : ($product->sizes ?? []);
 $storages = is_string($product->storages) ? json_decode($product->storages, true) : ($product->storages ?? []);
@@ -517,72 +518,74 @@ $storages = is_string($product->storages) ? json_decode($product->storages, true
 </div>
 
 <script>
-    function closeModal() {
-        document.getElementById('success-modal').style.display = 'none';
-    }
+function closeModal() {
+    document.getElementById('success-modal').style.display = 'none';
+}
 
-    setTimeout(function() {
-        document.getElementById('success-modal').style.display = 'none';
-    }, 2000);
+setTimeout(function() {
+    document.getElementById('success-modal').style.display = 'none';
+}, 2000);
 </script>
 @endif
 @endsection
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        // Khi chọn option, đồng bộ vào input hidden của cả 2 form
-        $('.product-options-modern select.input-select').on('change', function() {
-            var name = $(this).attr('name');
-            var value = $(this).val();
-            // Cập nhật cho form thêm vào giỏ
-            $(this).closest('form').find('input[name="' + name + '"]').val(value);
-            // Cập nhật cho form mua ngay
-            $('#buy-now-' + name).val(value);
-        });
-        // Khi load trang, đồng bộ giá trị mặc định của select vào input hidden
-        $('.product-options-modern select.input-select').each(function() {
-            var name = $(this).attr('name');
-            var value = $(this).val();
-            // Cập nhật cho form thêm vào giỏ
-            $(this).closest('form').find('input[name="' + name + '"]').val(value);
-            // Cập nhật cho form mua ngay
-            $('#buy-now-' + name).val(value);
-        });
-        // Đồng bộ số lượng khi thay đổi
-        $('.add-to-cart-form input[name="quantity"]').on('input', function() {
-            $('#buy-now-quantity').val($(this).val());
-        });
+$(document).ready(function() {
+    // Khi chọn option, đồng bộ vào input hidden của cả 2 form
+    $('.product-options-modern select.input-select').on('change', function() {
+        var name = $(this).attr('name');
+        var value = $(this).val();
+        // Cập nhật cho form thêm vào giỏ
+        $(this).closest('form').find('input[name="' + name + '"]').val(value);
+        // Cập nhật cho form mua ngay
+        $('#buy-now-' + name).val(value);
     });
+    // Khi load trang, đồng bộ giá trị mặc định của select vào input hidden
+    $('.product-options-modern select.input-select').each(function() {
+        var name = $(this).attr('name');
+        var value = $(this).val();
+        // Cập nhật cho form thêm vào giỏ
+        $(this).closest('form').find('input[name="' + name + '"]').val(value);
+        // Cập nhật cho form mua ngay
+        $('#buy-now-' + name).val(value);
+    });
+    // Đồng bộ số lượng khi thay đổi
+    $('.add-to-cart-form input[name="quantity"]').on('input', function() {
+        $('#buy-now-quantity').val($(this).val());
+    });
+});
 </script>
 <script>
-    $(document).ready(function() {
-        // Kiểm tra bắt buộc chọn đầy đủ option trước khi submit
-        function mustSelectAllOptions() {
-            var valid = true;
-            // Chỉ kiểm tra các option thực sự có tồn tại (không kiểm tra nếu không có option nào)
-            $('.product-options-modern select.input-select').each(function() {
-                if ($(this).find('option').length > 1 && $(this).val() === '') {
-                    valid = false;
-                    $(this).css('border', '1.5px solid #d10024');
-                } else {
-                    $(this).css('border', '1px solid #eee');
-                }
-            });
-            return valid;
-        }
-        $('.add-to-cart-form, .buy-now-form').on('submit', function(e) {
-            if (!mustSelectAllOptions()) {
-                alert('Vui lòng chọn đầy đủ tất cả các tuỳ chọn của sản phẩm trước khi mua hoặc thêm vào giỏ!');
-                e.preventDefault();
-                return false;
+$(document).ready(function() {
+    // Kiểm tra bắt buộc chọn đầy đủ option trước khi submit
+    function mustSelectAllOptions() {
+        var valid = true;
+        // Chỉ kiểm tra các option thực sự có tồn tại (không kiểm tra nếu không có option nào)
+        $('.product-options-modern select.input-select').each(function() {
+            if ($(this).find('option').length > 1 && $(this).val() === '') {
+                valid = false;
+                $(this).css('border', '1.5px solid #d10024');
+            } else {
+                $(this).css('border', '1px solid #eee');
             }
         });
+        return valid;
+    }
+    $('.add-to-cart-form, .buy-now-form').on('submit', function(e) {
+        if (!mustSelectAllOptions()) {
+            alert(
+                'Vui lòng chọn đầy đủ tất cả các tuỳ chọn của sản phẩm trước khi mua hoặc thêm vào giỏ!'
+                );
+            e.preventDefault();
+            return false;
+        }
     });
+});
 
-    function showCartSuccessModal(msg) {
-        if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
-        var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+function showCartSuccessModal(msg) {
+    if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
+    var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
         <div style="background:#222;padding:32px 40px;border-radius:16px;text-align:center;color:#fff;min-width:320px;box-shadow:0 8px 32px #0008;">
             <div style="font-size:48px;color:#4caf50;margin-bottom:12px;">
                 <i class='fa fa-shopping-cart'></i> <i class='fa fa-check' style='color:#4caf50;'></i>
@@ -591,28 +594,28 @@ $storages = is_string($product->storages) ? json_decode($product->storages, true
             <a href="/cart" style="background:#fff;color:#222;padding:8px 24px;border-radius:24px;font-weight:600;text-decoration:none;">Xem giỏ hàng</a>
         </div>
     </div>`;
-        $('body').append(html);
-        setTimeout(function() {
-            $('#cart-success-modal').fadeOut(300, function() {
-                $(this).remove();
-            });
-        }, 2000);
-    }
+    $('body').append(html);
+    setTimeout(function() {
+        $('#cart-success-modal').fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 2000);
+}
 </script>
 @endpush
 
 <style>
-    .wishlist-btn:hover {
-        background: #ffe4ec !important;
-        box-shadow: 0 4px 16px #f8bbd0;
-    }
+.wishlist-btn:hover {
+    background: #ffe4ec !important;
+    box-shadow: 0 4px 16px #f8bbd0;
+}
 
-    .wishlist-btn:active {
-        background: #ffd6e3 !important;
-    }
+.wishlist-btn:active {
+    background: #ffd6e3 !important;
+}
 
-    .wishlist-icon:hover {
-        color: #ff4081 !important;
-        transform: scale(1.2);
-    }
+.wishlist-icon:hover {
+    color: #ff4081 !important;
+    transform: scale(1.2);
+}
 </style>
