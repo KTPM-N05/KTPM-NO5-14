@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -85,7 +84,7 @@
                 <!-- Email -->
                 <div class="mb-6">
                     <label for="email" class="mb-2 block text-sm font-medium text-white">Email</label>
-                    <div class="relative">
+                    <div class="relative flex gap-2">
                         <div
                             class="absolute inset-y-0 left-0 flex h-full w-10 items-center justify-center text-white/70">
                             <i class="ri-mail-line"></i>
@@ -93,8 +92,20 @@
                         <input type="email" id="email" name="email" value="{{ old('email') }}"
                             class="rounded-button focus:ring-primary/50 focus:border-primary w-full border border-white/20 bg-white/10 py-3 pl-10 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2"
                             placeholder="Nhập email của bạn" required />
+                        <button type="button" id="sendCodeBtn" class="ml-2 bg-primary text-white rounded px-3 py-2 text-xs hover:bg-primary/80">Gửi mã xác nhận</button>
                     </div>
                     @error('email')
+                    <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Verification Code -->
+                <div class="mb-6">
+                    <label for="verification_code" class="mb-2 block text-sm font-medium text-white">Mã xác nhận</label>
+                    <input type="text" id="verification_code" name="verification_code" value="{{ old('verification_code') }}"
+                        class="rounded-button focus:ring-primary/50 focus:border-primary w-full border border-white/20 bg-white/10 py-3 pl-4 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2"
+                        placeholder="Nhập mã xác nhận đã gửi về email" required />
+                    @error('verification_code')
                     <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
@@ -186,6 +197,47 @@
                 "password_confirmation",
                 "confirmPasswordIcon"
             );
+        });
+
+        // Gửi mã xác nhận qua AJAX và đếm ngược 60s
+        const sendCodeBtn = document.getElementById('sendCodeBtn');
+        let countdown = null;
+        function startCountdown(seconds) {
+            let remaining = seconds;
+            sendCodeBtn.disabled = true;
+            sendCodeBtn.textContent = `Gửi lại mã (${remaining}s)`;
+            countdown = setInterval(() => {
+                remaining--;
+                sendCodeBtn.textContent = `Gửi lại mã (${remaining}s)`;
+                if (remaining <= 0) {
+                    clearInterval(countdown);
+                    sendCodeBtn.disabled = false;
+                    sendCodeBtn.textContent = 'Gửi mã xác nhận';
+                }
+            }, 1000);
+        }
+        sendCodeBtn.addEventListener('click', function () {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('Vui lòng nhập email trước!');
+                return;
+            }
+            startCountdown(60); // Đếm ngược ngay khi ấn nút
+            fetch("{{ route('sendVerificationCode') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name=_token]').value
+                },
+                body: JSON.stringify({ email })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(() => {
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                });
         });
     </script>
 </body>

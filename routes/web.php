@@ -70,6 +70,8 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register', [RegisterController::class, 'postRegister']);
+// Gửi mã xác nhận email
+Route::post('/send-verification-code', [RegisterController::class, 'sendVerificationCode'])->name('sendVerificationCode');
 // Dashboard
 Route::get('/dashboard', function (Request $request) { // Thêm Request $request
     return view('user.main', [
