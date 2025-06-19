@@ -61,14 +61,14 @@ class PageController extends Controller
         return view('clients.categories', compact('categories'));
     }
     public function policy()
-{
-    return view('clients.policy');
-}
-  public function terms()
+    {
+        return view('clients.policy');
+    }
+    public function terms()
     {
         return view('clients.terms');
     }
-     public function aboutUs()
+    public function aboutUs()
     {
         return view('clients.about-us');
     }
@@ -79,22 +79,29 @@ class PageController extends Controller
 
     public function checkout(Request $request)
     {
-        // Ưu tiên lấy sản phẩm từ wishlist nếu có product_ids
-        $productIds = collect(explode(',', $request->query('product_ids', '')))->filter();
+        // Nếu có product_id (mua ngay 1 sản phẩm), ưu tiên lấy từ query
+        $productId = $request->query('product_id');
+        $configuration = $request->query('configuration');
+        $color = $request->query('color');
+        $size = $request->query('size');
+        $storage = $request->query('storage');
+        $quantity = $request->query('quantity', 1);
         $selectedProducts = collect();
         $total = 0;
         $cartCount = 0;
         if (auth()->check()) {
             $cartCount = \App\Models\CartItem::where('user_id', auth()->id())->sum('quantity');
-            if ($productIds->count() > 0) {
-                $selectedProducts = \App\Models\Product::whereIn('id', $productIds)->get();
-                $selectedProducts = $selectedProducts->map(function ($p) {
-                    $p->quantity = 1;
-                    return $p;
-                });
-                $total = $selectedProducts->sum(function ($item) {
-                    return $item->price;
-                });
+            if ($productId) {
+                $product = \App\Models\Product::find($productId);
+                if ($product) {
+                    $product->configuration = $configuration;
+                    $product->color = $color;
+                    $product->size = $size;
+                    $product->storage = $storage;
+                    $product->quantity = $quantity;
+                    $selectedProducts = collect([$product]);
+                    $total = $product->price * $quantity;
+                }
             } else {
                 // Nếu không truyền cart_items, lấy toàn bộ cart của user
                 $cartItemIds = collect(explode(',', $request->query('cart_items', '')))->filter();

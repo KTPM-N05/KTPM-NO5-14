@@ -20,6 +20,10 @@ class CartController extends Controller
         }
         $cart = CartItem::where('user_id', Auth::id())
             ->where('product_id', $request->product_id)
+            ->where('color', $request->color)
+            ->where('size', $request->size)
+            ->where('storage', $request->storage)
+            ->where('configuration', $request->configuration)
             ->first();
 
         if ($cart) {
@@ -30,6 +34,10 @@ class CartController extends Controller
                 'user_id' => Auth::id(),
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
+                'color' => $request->color,
+                'size' => $request->size,
+                'storage' => $request->storage,
+                'configuration' => $request->configuration,
             ]);
         }
 
