@@ -77,9 +77,12 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                     $reviewsCount = $product->reviews()->count(); // Số reviews
                     $ratingsCount = $product->ratings()->count(); // Số ratings
                     @endphp
-                    @for($i = 1; $i <= 5; $i++)
-                        <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
-                    @endfor
+                    <<<<<<< HEAD @for($i=1; $i <=5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
+                        @endfor
+                        =======
+                        @for($i = 1; $i <= 5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
+                            @endfor
+                            >>>>>>> 0b9b44fc00061049fe4284b4321dfe2d5c01a9a4
                 </div>
                 <a class="review-link" href="#tab3">
                     {{ $totalReviews }} Đánh giá
@@ -132,7 +135,8 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
             </div>
 
             <ul class="product-btns">
-                <li><a href="#" class="wishlist-btn{{ in_array($product->id, $wishlistIds) ? ' added' : '' }}"
+                <li><a href="#"
+                        class="add-to-wishlist wishlist-btn{{ in_array($product->id, $wishlistIds) ? ' added' : '' }}"
                         data-product-id="{{ $product->id }}"
                         style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;">
                         <i class="fa {{ in_array($product->id, $wishlistIds) ? 'fa-heart' : 'fa-heart-o' }} wishlist-icon"
@@ -164,7 +168,7 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
             <ul class="tab-nav">
                 <li class="active"><a data-toggle="tab" href="#tab1">Mô tả</a></li>
                 <li><a data-toggle="tab" href="#tab2">Chi tiết</a></li>
-                <li><a data-toggle="tab" href="#tab3">Đánh giá ({{  $totalReviews  }})</a></li>
+                <li><a data-toggle="tab" href="#tab3">Đánh giá ({{ $totalReviews  }})</a></li>
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane fade in active">
@@ -213,7 +217,7 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                             $total = $product->totalReviewsCount();
                                             $percent = $total > 0 ? ($count / $total) * 100 : 0;
                                             @endphp
-                                            <div style="width: {{ $percent }}%;"></div>
+                                            <div style="width: {{ number_format($percent, 2) }}%;"></div>
                                         </div>
                                         <span class="sum">{{ $count }}</span>
                                     </li>
@@ -226,22 +230,24 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                 <ul class="reviews">
                                     {{-- Hiển thị 5 reviews ngẫu nhiên từ dữ liệu mẫu --}}
                                     @if($randomReviews && $randomReviews->count() > 0)
-                                        @foreach($randomReviews as $review)
-                                        <li>
-                                            <div class="review-heading">
-                                                <h5 class="name">{{ $review->user_name ?? 'Người dùng ẩn danh' }}</h5>
-                                                <p class="date">{{ \Carbon\Carbon::parse($review->created_at)->format('d M Y, g:i A') }}</p>
-                                                <div class="review-rating">
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        <i class="fa fa-star{{ $i <= $review->rating ? '' : '-o' }}"></i>
+                                    @foreach($randomReviews as $review)
+                                    <li>
+                                        <div class="review-heading">
+                                            <h5 class="name">{{ $review->user_name ?? 'Người dùng ẩn danh' }}</h5>
+                                            <p class="date">
+                                                {{ \Carbon\Carbon::parse($review->created_at)->format('d M Y, g:i A') }}
+                                            </p>
+                                            <div class="review-rating">
+                                                @for($i = 1; $i <= 5; $i++) <i
+                                                    class="fa fa-star{{ $i <= $review->rating ? '' : '-o' }}"></i>
                                                     @endfor
-                                                </div>
                                             </div>
-                                            <div class="review-body">
-                                                <p>{{ $review->comment }}</p>
-                                            </div>
-                                        </li>
-                                        @endforeach
+                                        </div>
+                                        <div class="review-body">
+                                            <p>{{ $review->comment }}</p>
+                                        </div>
+                                    </li>
+                                    @endforeach
                                     @endif
 
                                     {{-- Hiển thị ratings thực từ user (nếu có) --}}
@@ -251,9 +257,14 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                             <h5 class="name">{{ $rating->user->name }}</h5>
                                             <p class="date">{{ $rating->created_at->format('d M Y, g:i A') }}</p>
                                             <div class="review-rating">
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    <i class="fa fa-star{{ $i <= $rating->rating ? '' : '-o' }}"></i>
-                                                @endfor
+                                                <<<<<<< HEAD @for($i=1; $i <=5; $i++) <i
+                                                    class="fa fa-star{{ $i <= $rating->rating ? '' : '-o' }}"></i>
+                                                    @endfor
+                                                    =======
+                                                    @for($i = 1; $i <= 5; $i++) <i
+                                                        class="fa fa-star{{ $i <= $rating->rating ? '' : '-o' }}"></i>
+                                                        @endfor
+                                                        >>>>>>> 0b9b44fc00061049fe4284b4321dfe2d5c01a9a4
                                             </div>
                                         </div>
                                         <div class="review-body">
@@ -261,9 +272,9 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                         </div>
                                     </li>
                                     @empty
-                                        @if(!$randomReviews || $randomReviews->count() == 0)
-                                        <li>Chưa có đánh giá nào cho sản phẩm này</li>
-                                        @endif
+                                    @if(!$randomReviews || $randomReviews->count() == 0)
+                                    <li>Chưa có đánh giá nào cho sản phẩm này</li>
+                                    @endif
                                     @endforelse
                                 </ul>
                             </div>
@@ -352,16 +363,19 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                         <div class="product-body" style="padding:18px 24px 0 24px;">
                             <p class="product-category"
                                 style="font-size:13px;color:#888;font-weight:500;margin-bottom:4px;">
-                                {{ $relatedProduct->category->name ?? 'N/A' }}</p>
+                                {{ $relatedProduct->category->name ?? 'N/A' }}
+                            </p>
                             <h3 class="product-name"
                                 style="font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:8px;">
-                                {{ $relatedProduct->name }}</h3>
+                                {{ $relatedProduct->name }}
+                            </h3>
                             <h4 class="product-price"
                                 style="font-size:1.2rem;color:#d10024;font-weight:800;margin-bottom:6px;">
                                 {{ number_format($relatedProduct->price) }} VNĐ @if($relatedProduct->old_price) <del
                                     class="product-old-price"
                                     style="color:#aaa;font-size:1rem;font-weight:400;">{{ number_format($relatedProduct->old_price) }}
-                                    VNĐ</del>@endif</h4>
+                                    VNĐ</del>@endif
+                            </h4>
                             <div class="product-rating" style="margin-bottom:8px;">
                                         @php $avgRating = $product->averageRating(); @endphp
                                         @for($i = 1; $i <= 5; $i++) <i
@@ -448,47 +462,47 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
 </div>
 
 <script>
-function closeModal() {
-    document.getElementById('success-modal').style.display = 'none';
-}
+    function closeModal() {
+        document.getElementById('success-modal').style.display = 'none';
+    }
 
-setTimeout(function() {
-    document.getElementById('success-modal').style.display = 'none';
-}, 2000);
+    setTimeout(function() {
+        document.getElementById('success-modal').style.display = 'none';
+    }, 2000);
 </script>
 @endif
 @endsection
 
 @push('scripts')
 <script>
-$(document).ready(function() {
-    $('.add-to-cart-form').on('submit', function(e) {
-        e.preventDefault();
-        var form = $(this);
-        $.ajax({
-            url: form.attr('action'),
-            method: 'POST',
-            data: form.serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(res) {
-                showCartSuccessModal('Sản phẩm đã được thêm vào giỏ hàng');
-            },
-            error: function(xhr) {
-                if (xhr.status === 401) {
-                    window.location.href = '/login';
-                } else {
-                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+    $(document).ready(function() {
+        $('.add-to-cart-form').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res) {
+                    showCartSuccessModal('Sản phẩm đã được thêm vào giỏ hàng');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        window.location.href = '/login';
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
                 }
-            }
+            });
         });
     });
-});
 
-function showCartSuccessModal(msg) {
-    if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
-    var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+    function showCartSuccessModal(msg) {
+        if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
+        var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
         <div style="background:#222;padding:32px 40px;border-radius:16px;text-align:center;color:#fff;min-width:320px;box-shadow:0 8px 32px #0008;">
             <div style="font-size:48px;color:#4caf50;margin-bottom:12px;">
                 <i class='fa fa-shopping-cart'></i> <i class='fa fa-check' style='color:#4caf50;'></i>
@@ -497,28 +511,27 @@ function showCartSuccessModal(msg) {
             <a href="/cart" style="background:#fff;color:#222;padding:8px 24px;border-radius:24px;font-weight:600;text-decoration:none;">Xem giỏ hàng</a>
         </div>
     </div>`;
-    $('body').append(html);
-    setTimeout(function() {
-        $('#cart-success-modal').fadeOut(300, function() {
-            $(this).remove();
-        });
-    }, 2000);
-}
+        $('body').append(html);
+        setTimeout(function() {
+            $('#cart-success-modal').fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 2000);
+    }
 </script>
 @endpush
 
 <style>
-.wishlist-btn:hover {
-    background: #ffe4ec !important;
-    box-shadow: 0 4px 16px #f8bbd0;
-}
+    .wishlist-btn:hover {
+        background: #ffe4ec !important;
+        box-shadow: 0 4px 16px #f8bbd0;
+    }
 
-.wishlist-btn:active {
-    background: #ffd6e3 !important;
-}
-
-.wishlist-icon:hover {
-    color: #ff4081 !important;
-    transform: scale(1.2);
-}
+    .wishlist-btn:active {
+        background: #ffd6e3 !important;
+    }
+    .wishlist-icon:hover {
+        color: #ff4081 !important;
+        transform: scale(1.2);
+    }
 </style>
