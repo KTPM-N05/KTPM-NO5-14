@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandSeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call(ReviewSeeder::class); // Gọi ReviewSeeder sau cùng vì phụ thuộc vào User và Product
+        $this->call(ReviewSeeder::class);
+        $this->call(ProductOptionsSeeder::class); // Gọi ReviewSeeder sau cùng vì phụ thuộc vào User và Product
         // Các seeder khác nếu có
     }
 }
