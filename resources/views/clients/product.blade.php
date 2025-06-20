@@ -8,6 +8,11 @@ $wishlistIds = [];
 if(auth()->check()) {
 $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
 }
+$configurations = is_string($product->configurations) ? json_decode($product->configurations, true) :
+($product->configurations ?? []);
+$colors = is_string($product->colors) ? json_decode($product->colors, true) : ($product->colors ?? []);
+$sizes = is_string($product->sizes) ? json_decode($product->sizes, true) : ($product->sizes ?? []);
+$storages = is_string($product->storages) ? json_decode($product->storages, true) : ($product->storages ?? []);
 @endphp
 <div id="breadcrumb" class="section">
     <div class="container">
@@ -78,11 +83,11 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                     $ratingsCount = $product->ratings()->count(); // Số ratings
                     @endphp
                     {{-- <<<<<<< HEAD @for($i=1; $i <=5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
+                    @endfor
+                    ======= --}}
+                    @for($i = 1; $i <= 5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
                         @endfor
-                        ======= --}}
-                        @for($i = 1; $i <= 5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"></i>
-                            @endfor
-                            {{-- >>>>>>> 0b9b44fc00061049fe4284b4321dfe2d5c01a9a4 --}}
+                        {{-- >>>>>>> 0b9b44fc00061049fe4284b4321dfe2d5c01a9a4 --}}
                 </div>
                 <a class="review-link" href="#tab3">
                     {{ $totalReviews }} Đánh giá
@@ -95,43 +100,94 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
             </div>
             <p>{{ $product->description }}</p>
 
-            <div class="product-options" style="margin-bottom:18px;">
-                @if(!empty($product->configurations))
-                <label style="margin-right:20px;">
-                    <span style="font-weight:600;">Cấu hình:</span>
-                    <select class="input-select" name="configuration" style="min-width:120px;">
-                        @foreach($product->configurations as $config)
-                        <option value="{{ $config }}">{{ $config }}</option>
-                        @endforeach
-                    </select>
-                </label>
-                @endif
-                @if(!empty($product->colors))
-                <label>
-                    <span style="font-weight:600;">Màu sắc:</span>
-                    <select class="input-select" name="color" style="min-width:100px;">
-                        @foreach($product->colors as $color)
-                        <option value="{{ $color }}">{{ $color }}</option>
-                        @endforeach
-                    </select>
-                </label>
-                @endif
-            </div>
-            <div class="add-to-cart" style="display:flex;align-items:center;gap:12px;">
+            {{-- XOÁ PHẦN HIỂN THỊ OPTION NÀY (ngoài form) --}}
+
+            {{-- Chỉ giữ lại 1 bộ option duy nhất bên trong form "Thêm vào giỏ" (ẩn option trong form "Mua ngay") --}}
+            {{-- Thêm lại phần hiển thị option động, chỉ 1 bộ duy nhất, phía trên nút Thêm vào giỏ/Mua ngay --}}
+            <div class="product-options-modern" style="margin-bottom:28px;">
                 <form class="add-to-cart-form" action="{{ route('cart.add') }}" method="POST"
-                    style="display:flex;align-items:center;gap:12px;">
+                    style="display:flex;flex-direction:column;gap:18px;max-width:420px;background:#fff;border-radius:18px;box-shadow:0 4px 24px #e3e3e3;padding:28px 32px 18px 32px;">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="number" name="quantity" value="1" min="1"
-                        style="width:60px;display:inline-block;border-radius:8px;border:1px solid #eee;padding:4px 8px;">
-                    <button type="submit" class="add-to-cart-btn"
-                        style="background:#d10024;color:#fff;border-radius:24px;padding:10px 28px;font-size:16px;font-weight:600;box-shadow:0 2px 8px rgba(209,0,36,0.08);transition:background 0.2s;">
-                        <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-                    </button>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+                        <div style="flex:1;min-width:120px;">
+                            <label style="font-weight:700;color:#222;margin-bottom:6px;display:block;">
+                                <i class="fa fa-cogs" style="color:#d10024;margin-right:6px;"></i> Cấu hình
+                            </label>
+                            <select class="input-select" name="configuration"
+                                style="width:100%;border-radius:10px;padding:8px 12px;border:1.5px solid #e3e3e3;font-size:15px;">
+                                <option value="">Chọn cấu hình</option>
+                                @foreach($configurations as $config)
+                                <option value="{{ $config }}">{{ $config }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div style="flex:1;min-width:120px;">
+                            <label style="font-weight:700;color:#222;margin-bottom:6px;display:block;">
+                                <i class="fa fa-paint-brush" style="color:#1976d2;margin-right:6px;"></i> Màu sắc
+                            </label>
+                            <select class="input-select" name="color"
+                                style="width:100%;border-radius:10px;padding:8px 12px;border:1.5px solid #e3e3e3;font-size:15px;">
+                                <option value="">Chọn màu sắc</option>
+                                @foreach($colors as $color)
+                                <option value="{{ $color }}">{{ $color }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+                        <div style="flex:1;min-width:120px;">
+                            <label style="font-weight:700;color:#222;margin-bottom:6px;display:block;">
+                                <i class="fa fa-arrows-h" style="color:#0097a7;margin-right:6px;"></i> Kích thước
+                            </label>
+                            <select class="input-select" name="size"
+                                style="width:100%;border-radius:10px;padding:8px 12px;border:1.5px solid #e3e3e3;font-size:15px;">
+                                <option value="">Chọn kích thước</option>
+                                @foreach($sizes as $size)
+                                <option value="{{ $size }}">{{ $size }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div style="flex:1;min-width:120px;">
+                            <label style="font-weight:700;color:#222;margin-bottom:6px;display:block;">
+                                <i class="fa fa-hdd-o" style="color:#f57c00;margin-right:6px;"></i> Dung lượng
+                            </label>
+                            <select class="input-select" name="storage"
+                                style="width:100%;border-radius:10px;padding:8px 12px;border:1.5px solid #e3e3e3;font-size:15px;">
+                                <option value="">Chọn dung lượng</option>
+                                @foreach($storages as $storage)
+                                <option value="{{ $storage }}">{{ $storage }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:16px;margin-top:8px;">
+                        <div style="flex:0 0 90px;">
+                            <label style="font-weight:700;color:#222;margin-bottom:6px;display:block;">Số lượng</label>
+                            <input type="number" name="quantity" value="1" min="1"
+                                style="width:80px;border-radius:10px;border:1.5px solid #e3e3e3;padding:8px 12px;font-size:15px;">
+                        </div>
+                        <button type="submit" class="add-to-cart-btn"
+                            style="flex:1;background:linear-gradient(90deg,#d10024 60%,#1976d2 100%);color:#fff;border-radius:24px;padding:14px 0;font-size:18px;font-weight:700;box-shadow:0 4px 16px #f8bbd0;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:10px;">
+                            <i class="fa fa-shopping-cart" style="font-size:22px;"></i> Thêm vào giỏ hàng
+                        </button>
+                    </div>
                 </form>
-                <a href="#" class="primary-btn"
-                    style="background:#222;color:#fff;border-radius:24px;padding:10px 28px;font-size:16px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.08);transition:background 0.2s;">Mua
-                    ngay</a>
+            </div>
+            <div class="add-to-cart" style="display:flex;align-items:center;gap:12px;">
+                {{-- ĐÃ ĐƯA TOÀN BỘ FORM THÊM VÀO GIỎ HÀNG LÊN TRÊN, CHỈ GIỮ LẠI FORM MUA NGAY --}}
+                <form class="buy-now-form" action="{{ route('checkout') }}" method="GET"
+                    style="display:flex;align-items:center;gap:12px;">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="configuration" id="buy-now-configuration" value="">
+                    <input type="hidden" name="color" id="buy-now-color" value="">
+                    <input type="hidden" name="size" id="buy-now-size" value="">
+                    <input type="hidden" name="storage" id="buy-now-storage" value="">
+                    <input type="hidden" name="quantity" id="buy-now-quantity" value="1">
+                    <button type="submit" class="primary-btn"
+                        style="background:#222;color:#fff;border-radius:24px;padding:10px 28px;font-size:16px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.08);transition:background 0.2s;">Mua
+                        ngay</button>
+                </form>
             </div>
 
             <ul class="product-btns">
@@ -377,14 +433,14 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                     VNĐ</del>@endif
                             </h4>
                             <div class="product-rating" style="margin-bottom:8px;">
-                                        @php $avgRating = $product->averageRating(); @endphp
-                                        @for($i = 1; $i <= 5; $i++) <i
-                                            class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}" style="color:#ffc107;">
-                                            </i>
-                                            @endfor
-                                            <span
-                                                style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
-                                    </div>
+                                @php $avgRating = $product->averageRating(); @endphp
+                                @for($i = 1; $i <= 5; $i++) <i class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}"
+                                    style="color:#ffc107;">
+                                    </i>
+                                    @endfor
+                                    <span
+                                        style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
+                            </div>
                             <div class="product-btns mb-2" style="display:flex;gap:8px;">
                                 <button
                                     class="add-to-wishlist wishlist-btn{{ in_array($relatedProduct->id, $wishlistIds) ? ' added' : '' }}"
@@ -462,47 +518,74 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
 </div>
 
 <script>
-    function closeModal() {
-        document.getElementById('success-modal').style.display = 'none';
-    }
+function closeModal() {
+    document.getElementById('success-modal').style.display = 'none';
+}
 
-    setTimeout(function() {
-        document.getElementById('success-modal').style.display = 'none';
-    }, 2000);
+setTimeout(function() {
+    document.getElementById('success-modal').style.display = 'none';
+}, 2000);
 </script>
 @endif
 @endsection
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('.add-to-cart-form').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            $.ajax({
-                url: form.attr('action'),
-                method: 'POST',
-                data: form.serialize(),
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(res) {
-                    showCartSuccessModal('Sản phẩm đã được thêm vào giỏ hàng');
-                },
-                error: function(xhr) {
-                    if (xhr.status === 401) {
-                        window.location.href = '/login';
-                    } else {
-                        alert('Có lỗi xảy ra, vui lòng thử lại!');
-                    }
-                }
-            });
-        });
+$(document).ready(function() {
+    // Khi chọn option, đồng bộ vào input hidden của cả 2 form
+    $('.product-options-modern select.input-select').on('change', function() {
+        var name = $(this).attr('name');
+        var value = $(this).val();
+        // Cập nhật cho form thêm vào giỏ
+        $(this).closest('form').find('input[name="' + name + '"]').val(value);
+        // Cập nhật cho form mua ngay
+        $('#buy-now-' + name).val(value);
     });
+    // Khi load trang, đồng bộ giá trị mặc định của select vào input hidden
+    $('.product-options-modern select.input-select').each(function() {
+        var name = $(this).attr('name');
+        var value = $(this).val();
+        // Cập nhật cho form thêm vào giỏ
+        $(this).closest('form').find('input[name="' + name + '"]').val(value);
+        // Cập nhật cho form mua ngay
+        $('#buy-now-' + name).val(value);
+    });
+    // Đồng bộ số lượng khi thay đổi
+    $('.add-to-cart-form input[name="quantity"]').on('input', function() {
+        $('#buy-now-quantity').val($(this).val());
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Kiểm tra bắt buộc chọn đầy đủ option trước khi submit
+    function mustSelectAllOptions() {
+        var valid = true;
+        // Chỉ kiểm tra các option thực sự có tồn tại (không kiểm tra nếu không có option nào)
+        $('.product-options-modern select.input-select').each(function() {
+            if ($(this).find('option').length > 1 && $(this).val() === '') {
+                valid = false;
+                $(this).css('border', '1.5px solid #d10024');
+            } else {
+                $(this).css('border', '1px solid #eee');
+            }
+        });
+        return valid;
+    }
+    $('.add-to-cart-form, .buy-now-form').on('submit', function(e) {
+        if (!mustSelectAllOptions()) {
+            alert(
+                'Vui lòng chọn đầy đủ tất cả các tuỳ chọn của sản phẩm trước khi mua hoặc thêm vào giỏ!'
+                );
+            e.preventDefault();
+            return false;
+        }
+    });
+});
 
-    function showCartSuccessModal(msg) {
-        if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
-        var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+function showCartSuccessModal(msg) {
+    if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
+    var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
         <div style="background:#222;padding:32px 40px;border-radius:16px;text-align:center;color:#fff;min-width:320px;box-shadow:0 8px 32px #0008;">
             <div style="font-size:48px;color:#4caf50;margin-bottom:12px;">
                 <i class='fa fa-shopping-cart'></i> <i class='fa fa-check' style='color:#4caf50;'></i>
@@ -511,27 +594,28 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
             <a href="/cart" style="background:#fff;color:#222;padding:8px 24px;border-radius:24px;font-weight:600;text-decoration:none;">Xem giỏ hàng</a>
         </div>
     </div>`;
-        $('body').append(html);
-        setTimeout(function() {
-            $('#cart-success-modal').fadeOut(300, function() {
-                $(this).remove();
-            });
-        }, 2000);
-    }
+    $('body').append(html);
+    setTimeout(function() {
+        $('#cart-success-modal').fadeOut(300, function() {
+            $(this).remove();
+        });
+    }, 2000);
+}
 </script>
 @endpush
 
 <style>
-    .wishlist-btn:hover {
-        background: #ffe4ec !important;
-        box-shadow: 0 4px 16px #f8bbd0;
-    }
+.wishlist-btn:hover {
+    background: #ffe4ec !important;
+    box-shadow: 0 4px 16px #f8bbd0;
+}
 
-    .wishlist-btn:active {
-        background: #ffd6e3 !important;
-    }
-    .wishlist-icon:hover {
-        color: #ff4081 !important;
-        transform: scale(1.2);
-    }
+.wishlist-btn:active {
+    background: #ffd6e3 !important;
+}
+
+.wishlist-icon:hover {
+    color: #ff4081 !important;
+    transform: scale(1.2);
+}
 </style>

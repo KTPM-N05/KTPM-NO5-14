@@ -24,7 +24,7 @@
 
                 <div class="col-md-7">
                     <div class="login-section">
-                         <a href="{{route('login')}}">Nhấn vào đây để đăng nhập</a>
+                        <a href="{{route('login')}}">Nhấn vào đây để đăng nhập</a>
                     </div>
                     <div class="billing-details">
                         <div class="section-title">
@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <div class="input-checkbox">
                                 <input type="checkbox" id="create-account" name="create_account">
-                                
+
                                 <div class="caption">
                                     <p>Tạo tài khoản để thanh toán nhanh hơn và theo dõi đơn hàng dễ dàng. Nếu bạn là khách hàng cũ, vui lòng <a href="{{route('login')}}">đăng nhập ở đầu trang</a>.</p>
                                     <input class="input" type="password" name="password" placeholder="Nhập mật khẩu của bạn">
@@ -132,25 +132,43 @@
                         </div>
                         <div class="order-products">
                             @if(isset($selectedCartItems) && count($selectedCartItems) > 0)
-                                @foreach($selectedCartItems as $item)
-                                <div class="order-col product-widget-checkout">
-                                    <div class="product-img-checkout">
-                                        <img src="{{ asset('storage/' . $item->product->image_path) }}" alt="{{ $item->product->name }}" style="max-width:60px;">
-                                    </div>
-                                    <div class="product-body-checkout">
-                                        <div class="product-name">{{ $item->quantity }}x {{ $item->product->name }}</div>
-                                        <div class="product-price-checkout">{{ number_format($item->product->price * $item->quantity) }} VNĐ</div>
-                                        @if($item->product->color)
-                                            <div style="font-size:13px;">Màu sắc: <span style="font-weight:600">{{ $item->product->color }}</span></div>
-                                        @endif
-                                        @if($item->product->configuration)
-                                            <div style="font-size:13px;">Cấu hình: <span style="font-weight:600">{{ $item->product->configuration }}</span></div>
-                                        @endif
-                                    </div>
+                            @foreach($selectedCartItems as $item)
+                            @php
+                            // Nếu là CartItem thì lấy từ $item->product, nếu là Product thì lấy trực tiếp
+                            $isCartItem = isset($item->product);
+                            $name = $isCartItem ? ($item->product->name ?? $item->name) : ($item->name ?? '');
+                            $price = $isCartItem ? ($item->product->price ?? $item->price) : ($item->price ?? 0);
+                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) : ($item->image_path ?? null);
+                            $quantity = $item->quantity ?? 1;
+                            $configuration = $item->configuration ?? null;
+                            $color = $item->color ?? null;
+                            $size = $item->size ?? null;
+                            $storage = $item->storage ?? null;
+                            @endphp
+                            <div class="order-col product-widget-checkout">
+                                <div class="product-img-checkout">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}" style="max-width:60px;">
                                 </div>
-                                @endforeach
+                                <div class="product-body-checkout">
+                                    <div class="product-name">{{ $quantity }}x {{ $name }}</div>
+                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ</div>
+                                    @if(!empty($configuration))
+                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i class="fa fa-cogs"></i> Cấu hình: <span style="font-weight:700">{{ $configuration }}</span></div>
+                                    @endif
+                                    @if(!empty($color))
+                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i class="fa fa-paint-brush"></i> Màu: <span style="font-weight:700">{{ $color }}</span></div>
+                                    @endif
+                                    @if(!empty($size))
+                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i class="fa fa-arrows-h"></i> Kích thước: <span style="font-weight:700">{{ $size }}</span></div>
+                                    @endif
+                                    @if(!empty($storage))
+                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i class="fa fa-hdd-o"></i> Dung lượng: <span style="font-weight:700">{{ $storage }}</span></div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endforeach
                             @else
-                                <div>Không có sản phẩm nào được chọn.</div>
+                            <div>Không có sản phẩm nào được chọn.</div>
                             @endif
                         </div>
                         <div class="form-group">
@@ -189,7 +207,7 @@
                                 <p>Thanh toán bằng tiền mặt khi nhận hàng. Vui lòng chuẩn bị đủ số tiền.</p>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="input-checkbox">
                         <input type="checkbox" id="terms" name="terms" required>
@@ -275,7 +293,7 @@
             }
         });
 
-        $('#shiping-address').on('change', function(){
+        $('#shiping-address').on('change', function() {
             if ($(this).is(':checked')) {
                 $(this).closest('.input-checkbox').find('.caption').slideDown();
             } else {
@@ -283,7 +301,7 @@
             }
         }).trigger('change');
 
-        $('#create-account').on('change', function(){
+        $('#create-account').on('change', function() {
             if ($(this).is(':checked')) {
                 $(this).closest('.input-checkbox').find('.caption').slideDown();
             } else {
@@ -292,8 +310,12 @@
         }).trigger('change');
 
         // --- Gán dữ liệu ẩn để tránh lỗi reload trang ---
-        const cartItemIds = @json($selectedCartItems->pluck('id'));
-        const totalAmount = {{ $selectedTotal }};
+        var cartItemIds = {
+            !!json_encode($selectedCartItems - > pluck('id')) !!
+        };
+        var totalAmount = {
+            !!json_encode($selectedTotal) !!
+        };
         $('#selected_cart_items_ids_checkout').val(cartItemIds.join(','));
         $('#total_amount_checkout').val(totalAmount);
 
