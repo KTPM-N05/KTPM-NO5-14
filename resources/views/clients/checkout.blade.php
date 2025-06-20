@@ -145,32 +145,44 @@
                             $isCartItem = isset($item->product);
                             $name = $isCartItem ? ($item->product->name ?? $item->name) : ($item->name ?? '');
                             $price = $isCartItem ? ($item->product->price ?? $item->price) : ($item->price ?? 0);
-                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) : ($item->image_path ?? null);
+                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) :
+                            ($item->image_path ?? null);
                             $quantity = $item->quantity ?? 1;
                             // Lấy option đúng chuẩn, không xuống dòng giữa tên biến và giá trị
-                            $configuration = $item->configuration ?? ($isCartItem ? ($item->product->configuration ?? null) : null);
+                            $configuration = $item->configuration ?? ($isCartItem ? ($item->product->configuration ??
+                            null) : null);
                             $color = $item->color ?? ($isCartItem ? ($item->product->color ?? null) : null);
                             $size = $item->size ?? ($isCartItem ? ($item->product->size ?? null) : null);
                             $storage = $item->storage ?? ($isCartItem ? ($item->product->storage ?? null) : null);
                             @endphp
                             <div class="order-col product-widget-checkout">
                                 <div class="product-img-checkout">
-                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}" style="max-width:60px;">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}"
+                                        style="max-width:60px;">
                                 </div>
                                 <div class="product-body-checkout">
                                     <div class="product-name">{{ $quantity }}x {{ $name }}</div>
-                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ</div>
+                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ
+                                    </div>
                                     @if(!empty($configuration))
-                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i class="fa fa-cogs"></i> Cấu hình: <span style="font-weight:700">{{ $configuration }}</span></div>
+                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i
+                                            class="fa fa-cogs"></i> Cấu hình: <span
+                                            style="font-weight:700">{{ $configuration }}</span></div>
                                     @endif
                                     @if(!empty($color))
-                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i class="fa fa-paint-brush"></i> Màu: <span style="font-weight:700">{{ $color }}</span></div>
+                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i
+                                            class="fa fa-paint-brush"></i> Màu: <span
+                                            style="font-weight:700">{{ $color }}</span></div>
                                     @endif
                                     @if(!empty($size))
-                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i class="fa fa-arrows-h"></i> Kích thước: <span style="font-weight:700">{{ $size }}</span></div>
+                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i
+                                            class="fa fa-arrows-h"></i> Kích thước: <span
+                                            style="font-weight:700">{{ $size }}</span></div>
                                     @endif
                                     @if(!empty($storage))
-                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i class="fa fa-hdd-o"></i> Dung lượng: <span style="font-weight:700">{{ $storage }}</span></div>
+                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i
+                                            class="fa fa-hdd-o"></i> Dung lượng: <span
+                                            style="font-weight:700">{{ $storage }}</span></div>
                                     @endif
                                 </div>
                             </div>
