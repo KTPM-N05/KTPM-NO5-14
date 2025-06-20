@@ -279,7 +279,7 @@
 
 @push('scripts')
 <script type="text/javascript">
-    var cartItemIds = @json($selectedCartItems - > pluck('id') - > all());
+    var cartItemIds = @json($selectedCartItems->pluck('id')->all());
     var totalAmount = @json($selectedTotal);
     $(document).ready(function() {
         function generateQRCode() {
