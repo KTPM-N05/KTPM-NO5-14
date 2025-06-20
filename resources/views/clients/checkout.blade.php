@@ -139,52 +139,38 @@
                             <div><strong>TẠM TÍNH</strong></div>
                         </div>
                         <div class="order-products">
-                            @if(isset(
-                            $selectedCartItems) && count($selectedCartItems) > 0)
+                            @if(isset($selectedCartItems) && count($selectedCartItems) > 0)
                             @foreach($selectedCartItems as $item)
                             @php
                             $isCartItem = isset($item->product);
                             $name = $isCartItem ? ($item->product->name ?? $item->name) : ($item->name ?? '');
                             $price = $isCartItem ? ($item->product->price ?? $item->price) : ($item->price ?? 0);
-                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) :
-                            ($item->image_path ?? null);
+                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) : ($item->image_path ?? null);
                             $quantity = $item->quantity ?? 1;
-                            // Ưu tiên lấy option từ $item, nếu không có thì lấy từ $item->product (trường hợp CartItem
-                            thiếu option)
-                            $configuration = $item->configuration ?? ($isCartItem ? ($item->product->configuration ??
-                            null) : null);
+                            // Lấy option đúng chuẩn, không xuống dòng giữa tên biến và giá trị
+                            $configuration = $item->configuration ?? ($isCartItem ? ($item->product->configuration ?? null) : null);
                             $color = $item->color ?? ($isCartItem ? ($item->product->color ?? null) : null);
                             $size = $item->size ?? ($isCartItem ? ($item->product->size ?? null) : null);
                             $storage = $item->storage ?? ($isCartItem ? ($item->product->storage ?? null) : null);
                             @endphp
                             <div class="order-col product-widget-checkout">
                                 <div class="product-img-checkout">
-                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}"
-                                        style="max-width:60px;">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}" style="max-width:60px;">
                                 </div>
                                 <div class="product-body-checkout">
                                     <div class="product-name">{{ $quantity }}x {{ $name }}</div>
-                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ
-                                    </div>
+                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ</div>
                                     @if(!empty($configuration))
-                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i
-                                            class="fa fa-cogs"></i> Cấu hình: <span
-                                            style="font-weight:700">{{ $configuration }}</span></div>
+                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i class="fa fa-cogs"></i> Cấu hình: <span style="font-weight:700">{{ $configuration }}</span></div>
                                     @endif
                                     @if(!empty($color))
-                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i
-                                            class="fa fa-paint-brush"></i> Màu: <span
-                                            style="font-weight:700">{{ $color }}</span></div>
+                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i class="fa fa-paint-brush"></i> Màu: <span style="font-weight:700">{{ $color }}</span></div>
                                     @endif
                                     @if(!empty($size))
-                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i
-                                            class="fa fa-arrows-h"></i> Kích thước: <span
-                                            style="font-weight:700">{{ $size }}</span></div>
+                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i class="fa fa-arrows-h"></i> Kích thước: <span style="font-weight:700">{{ $size }}</span></div>
                                     @endif
                                     @if(!empty($storage))
-                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i
-                                            class="fa fa-hdd-o"></i> Dung lượng: <span
-                                            style="font-weight:700">{{ $storage }}</span></div>
+                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i class="fa fa-hdd-o"></i> Dung lượng: <span style="font-weight:700">{{ $storage }}</span></div>
                                     @endif
                                 </div>
                             </div>
@@ -281,71 +267,71 @@
 
 @push('scripts')
 <script type="text/javascript">
-var cartItemIds = @json($selectedCartItems - > pluck('id') - > all());
-var totalAmount = @json($selectedTotal);
-$(document).ready(function() {
-    function generateQRCode() {
-        const YOUR_ACCOUNT_NUMBER = "0363489746";
-        const BANK_SHORT_NAME = "MB";
-        const TEMPLATE_NAME = "compact";
-        const apiUrl =
-            `https://img.vietqr.io/image/${BANK_SHORT_NAME}-${YOUR_ACCOUNT_NUMBER}-${TEMPLATE_NAME}.jpg`;
-        const qrImageElement = $('#qr-image');
+    var cartItemIds = @json($selectedCartItems - > pluck('id') - > all());
+    var totalAmount = @json($selectedTotal);
+    $(document).ready(function() {
+        function generateQRCode() {
+            const YOUR_ACCOUNT_NUMBER = "0363489746";
+            const BANK_SHORT_NAME = "MB";
+            const TEMPLATE_NAME = "compact";
+            const apiUrl =
+                `https://img.vietqr.io/image/${BANK_SHORT_NAME}-${YOUR_ACCOUNT_NUMBER}-${TEMPLATE_NAME}.jpg`;
+            const qrImageElement = $('#qr-image');
 
-        if (qrImageElement.length) {
-            qrImageElement.closest('.caption').show();
-            qrImageElement.attr('src', apiUrl).css({
-                'display': 'inline-block',
-                'visibility': 'visible',
-                'opacity': '1'
-            });
-        }
-    }
-
-    function initializePaymentMethod() {
-        $('.payment-method .caption').hide();
-        const checkedInput = $('input[name="payment_method"]:checked');
-        if (checkedInput.length > 0) {
-            const activeCaption = checkedInput.closest('.input-radio').find('.caption');
-            activeCaption.show();
-            if (checkedInput.val() === 'bank_transfer') {
-                generateQRCode();
+            if (qrImageElement.length) {
+                qrImageElement.closest('.caption').show();
+                qrImageElement.attr('src', apiUrl).css({
+                    'display': 'inline-block',
+                    'visibility': 'visible',
+                    'opacity': '1'
+                });
             }
         }
-    }
 
-    $('input[name="payment_method"]').on('change', function() {
-        $('.payment-method .caption').slideUp();
-        const currentCaption = $(this).closest('.input-radio').find('.caption');
-        currentCaption.slideDown();
-        if ($(this).val() === 'bank_transfer') {
-            generateQRCode();
+        function initializePaymentMethod() {
+            $('.payment-method .caption').hide();
+            const checkedInput = $('input[name="payment_method"]:checked');
+            if (checkedInput.length > 0) {
+                const activeCaption = checkedInput.closest('.input-radio').find('.caption');
+                activeCaption.show();
+                if (checkedInput.val() === 'bank_transfer') {
+                    generateQRCode();
+                }
+            }
         }
+
+        $('input[name="payment_method"]').on('change', function() {
+            $('.payment-method .caption').slideUp();
+            const currentCaption = $(this).closest('.input-radio').find('.caption');
+            currentCaption.slideDown();
+            if ($(this).val() === 'bank_transfer') {
+                generateQRCode();
+            }
+        });
+
+        $('#shiping-address').on('change', function() {
+            if ($(this).is(':checked')) {
+                $(this).closest('.input-checkbox').find('.caption').slideDown();
+            } else {
+                $(this).closest('.input-checkbox').find('.caption').slideUp();
+            }
+        }).trigger('change');
+
+        $('#create-account').on('change', function() {
+            if ($(this).is(':checked')) {
+                $(this).closest('.input-checkbox').find('.caption').slideDown();
+            } else {
+                $(this).closest('.input-checkbox').find('.caption').slideUp();
+            }
+        }).trigger('change');
+
+        // --- Gán dữ liệu ẩn để tránh lỗi reload trang ---
+        $('#selected_cart_items_ids_checkout').val(Array.isArray(cartItemIds) ? cartItemIds.join(',') :
+            cartItemIds);
+        $('#total_amount_checkout').val(totalAmount);
+
+        // --- Khởi tạo QR và hiển thị mặc định ---
+        initializePaymentMethod();
     });
-
-    $('#shiping-address').on('change', function() {
-        if ($(this).is(':checked')) {
-            $(this).closest('.input-checkbox').find('.caption').slideDown();
-        } else {
-            $(this).closest('.input-checkbox').find('.caption').slideUp();
-        }
-    }).trigger('change');
-
-    $('#create-account').on('change', function() {
-        if ($(this).is(':checked')) {
-            $(this).closest('.input-checkbox').find('.caption').slideDown();
-        } else {
-            $(this).closest('.input-checkbox').find('.caption').slideUp();
-        }
-    }).trigger('change');
-
-    // --- Gán dữ liệu ẩn để tránh lỗi reload trang ---
-    $('#selected_cart_items_ids_checkout').val(Array.isArray(cartItemIds) ? cartItemIds.join(',') :
-        cartItemIds);
-    $('#total_amount_checkout').val(totalAmount);
-
-    // --- Khởi tạo QR và hiển thị mặc định ---
-    initializePaymentMethod();
-});
 </script>
 @endpush
