@@ -16,6 +16,9 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="{{ asset('css/oders.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/order.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
 
 </head>
 
@@ -38,9 +41,10 @@
     <script src="{{ asset('js/checkout.js') }}"></script>
     <script src="{{ asset('js/wishlist.js') }}"></script>
     <script src="{{ asset('js/wishlist-badge.js') }}"></script>
-    
+
     {{-- Vị trí này sẽ nhận tất cả các script được @push từ các trang con --}}
     @stack('scripts')
 
 </body>
+
 </html>
