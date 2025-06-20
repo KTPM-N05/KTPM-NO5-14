@@ -40,7 +40,8 @@
                             <input class="input" type="email" name="email" placeholder="Email" required>
                         </div>
                         <div class="form-group">
-                            <input class="input" type="tel" name="tel" placeholder="Điện thoại (ví dụ: 09xxxxxxxx)" required pattern="[0-9]{10,11}">
+                            <input class="input" type="tel" name="tel" placeholder="Điện thoại (ví dụ: 09xxxxxxxx)"
+                                required pattern="[0-9]{10,11}">
                         </div>
                         <div class="form-group address-select-group">
                             <select class="input-select" name="province" id="province" required>
@@ -60,15 +61,19 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input class="input" type="text" name="address" placeholder="Địa chỉ chi tiết (Số nhà, tên đường, tòa nhà...)" required>
+                            <input class="input" type="text" name="address"
+                                placeholder="Địa chỉ chi tiết (Số nhà, tên đường, tòa nhà...)" required>
                         </div>
                         <div class="form-group">
                             <div class="input-checkbox">
                                 <input type="checkbox" id="create-account" name="create_account">
 
                                 <div class="caption">
-                                    <p>Tạo tài khoản để thanh toán nhanh hơn và theo dõi đơn hàng dễ dàng. Nếu bạn là khách hàng cũ, vui lòng <a href="{{route('login')}}">đăng nhập ở đầu trang</a>.</p>
-                                    <input class="input" type="password" name="password" placeholder="Nhập mật khẩu của bạn">
+                                    <p>Tạo tài khoản để thanh toán nhanh hơn và theo dõi đơn hàng dễ dàng. Nếu bạn là
+                                        khách hàng cũ, vui lòng <a href="{{route('login')}}">đăng nhập ở đầu trang</a>.
+                                    </p>
+                                    <input class="input" type="password" name="password"
+                                        placeholder="Nhập mật khẩu của bạn">
                                 </div>
                             </div>
                         </div>
@@ -91,7 +96,8 @@
                                     <input class="input" type="text" name="shipping_last_name" placeholder="Họ">
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="tel" name="shipping_tel" placeholder="Điện thoại (ví dụ: 09xxxxxxxx)" pattern="[0-9]{10,11}">
+                                    <input class="input" type="tel" name="shipping_tel"
+                                        placeholder="Điện thoại (ví dụ: 09xxxxxxxx)" pattern="[0-9]{10,11}">
                                 </div>
                                 <div class="form-group address-select-group">
                                     <select class="input-select" name="shipping_province" id="shipping-province">
@@ -111,13 +117,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input" type="text" name="shipping_address" placeholder="Địa chỉ chi tiết (Số nhà, tên đường, tòa nhà...)">
+                                    <input class="input" type="text" name="shipping_address"
+                                        placeholder="Địa chỉ chi tiết (Số nhà, tên đường, tòa nhà...)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="order-notes">
-                        <textarea class="input" name="order_notes" placeholder="Ghi chú đơn hàng (ví dụ: thời gian giao hàng mong muốn, v.v.)"></textarea>
+                        <textarea class="input" name="order_notes"
+                            placeholder="Ghi chú đơn hàng (ví dụ: thời gian giao hàng mong muốn, v.v.)"></textarea>
                     </div>
                 </div>
 
@@ -131,38 +139,52 @@
                             <div><strong>TẠM TÍNH</strong></div>
                         </div>
                         <div class="order-products">
-                            @if(isset($selectedCartItems) && count($selectedCartItems) > 0)
+                            @if(isset(
+                            $selectedCartItems) && count($selectedCartItems) > 0)
                             @foreach($selectedCartItems as $item)
                             @php
-                            // Nếu là CartItem thì lấy từ $item->product, nếu là Product thì lấy trực tiếp
                             $isCartItem = isset($item->product);
                             $name = $isCartItem ? ($item->product->name ?? $item->name) : ($item->name ?? '');
                             $price = $isCartItem ? ($item->product->price ?? $item->price) : ($item->price ?? 0);
-                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) : ($item->image_path ?? null);
+                            $image = $isCartItem ? ($item->product->image_path ?? $item->image_path) :
+                            ($item->image_path ?? null);
                             $quantity = $item->quantity ?? 1;
-                            $configuration = $item->configuration ?? null;
-                            $color = $item->color ?? null;
-                            $size = $item->size ?? null;
-                            $storage = $item->storage ?? null;
+                            // Ưu tiên lấy option từ $item, nếu không có thì lấy từ $item->product (trường hợp CartItem
+                            thiếu option)
+                            $configuration = $item->configuration ?? ($isCartItem ? ($item->product->configuration ??
+                            null) : null);
+                            $color = $item->color ?? ($isCartItem ? ($item->product->color ?? null) : null);
+                            $size = $item->size ?? ($isCartItem ? ($item->product->size ?? null) : null);
+                            $storage = $item->storage ?? ($isCartItem ? ($item->product->storage ?? null) : null);
                             @endphp
                             <div class="order-col product-widget-checkout">
                                 <div class="product-img-checkout">
-                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}" style="max-width:60px;">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="{{ $name }}"
+                                        style="max-width:60px;">
                                 </div>
                                 <div class="product-body-checkout">
                                     <div class="product-name">{{ $quantity }}x {{ $name }}</div>
-                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ</div>
+                                    <div class="product-price-checkout">{{ number_format($price * $quantity) }} VNĐ
+                                    </div>
                                     @if(!empty($configuration))
-                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i class="fa fa-cogs"></i> Cấu hình: <span style="font-weight:700">{{ $configuration }}</span></div>
+                                    <div style="font-size:14px;color:#d10024;font-weight:600;"><i
+                                            class="fa fa-cogs"></i> Cấu hình: <span
+                                            style="font-weight:700">{{ $configuration }}</span></div>
                                     @endif
                                     @if(!empty($color))
-                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i class="fa fa-paint-brush"></i> Màu: <span style="font-weight:700">{{ $color }}</span></div>
+                                    <div style="font-size:14px;color:#1976d2;font-weight:600;"><i
+                                            class="fa fa-paint-brush"></i> Màu: <span
+                                            style="font-weight:700">{{ $color }}</span></div>
                                     @endif
                                     @if(!empty($size))
-                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i class="fa fa-arrows-h"></i> Kích thước: <span style="font-weight:700">{{ $size }}</span></div>
+                                    <div style="font-size:14px;color:#0097a7;font-weight:600;"><i
+                                            class="fa fa-arrows-h"></i> Kích thước: <span
+                                            style="font-weight:700">{{ $size }}</span></div>
                                     @endif
                                     @if(!empty($storage))
-                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i class="fa fa-hdd-o"></i> Dung lượng: <span style="font-weight:700">{{ $storage }}</span></div>
+                                    <div style="font-size:14px;color:#f57c00;font-weight:600;"><i
+                                            class="fa fa-hdd-o"></i> Dung lượng: <span
+                                            style="font-weight:700">{{ $storage }}</span></div>
                                     @endif
                                 </div>
                             </div>
@@ -173,7 +195,8 @@
                         </div>
                         <div class="form-group">
                             <input class="input" type="text" name="discount-code" placeholder="Nhập mã giảm giá">
-                            <button class="primary-btn" style="margin-top:10px; width:100%" id="apply-discount-btn">Áp dụng</button>
+                            <button class="primary-btn" style="margin-top:10px; width:100%" id="apply-discount-btn">Áp
+                                dụng</button>
                         </div>
                         <div class="order-col">
                             <div>Phí vận chuyển</div>
@@ -181,7 +204,9 @@
                         </div>
                         <div class="order-col">
                             <div><strong>TỔNG CỘNG</strong></div>
-                            <div><strong class="order-total" id="checkout-total">{{ number_format($selectedTotal) }} VNĐ</strong></div>
+                            <div><strong class="order-total" id="checkout-total"
+                                    style="color:#222;background:transparent;z-index:10;position:relative;">{{ number_format($selectedTotal) }}
+                                    VNĐ</strong></div>
                         </div>
                     </div>
                     <div class="payment-method">
@@ -193,7 +218,8 @@
                             </label>
                             <div class="caption">
                                 <div style="text-align: center; padding: 20px;">
-                                    <img id="qr-image" src="" alt="Mã QR thanh toán" style="max-width: 250px; display: none;">
+                                    <img id="qr-image" src="" alt="Mã QR thanh toán"
+                                        style="max-width: 250px; display: none;">
                                 </div>
                             </div>
                         </div>
@@ -213,14 +239,16 @@
                         <input type="checkbox" id="terms" name="terms" required>
                         <label for="terms">
                             <span></span>
-                            Tôi đã đọc và đồng ý với <a href="terms.html" target="_blank">điều khoản & điều kiện</a> của cửa hàng.
+                            Tôi đã đọc và đồng ý với <a href="terms.html" target="_blank">điều khoản & điều kiện</a> của
+                            cửa hàng.
                         </label>
                     </div>
                     <input type="hidden" name="selected_cart_items_ids" id="selected_cart_items_ids_checkout">
                     <input type="hidden" name="total_amount" id="total_amount_checkout">
                     <button type="submit" class="primary-btn order-submit">Hoàn tất đặt hàng</button>
                     <div style="text-align:center; margin-top:15px;">
-                        <small>Cần hỗ trợ? <a href="contact.html">Liên hệ chúng tôi</a> hoặc gọi <a href="tel:+021955184">021-95-51-84</a></small>
+                        <small>Cần hỗ trợ? <a href="contact.html">Liên hệ chúng tôi</a> hoặc gọi <a
+                                href="tel:+021955184">021-95-51-84</a></small>
                     </div>
                 </div>
             </form>
@@ -252,75 +280,72 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function() {
+<script type="text/javascript">
+var cartItemIds = @json($selectedCartItems - > pluck('id') - > all());
+var totalAmount = @json($selectedTotal);
+$(document).ready(function() {
+    function generateQRCode() {
+        const YOUR_ACCOUNT_NUMBER = "0363489746";
+        const BANK_SHORT_NAME = "MB";
+        const TEMPLATE_NAME = "compact";
+        const apiUrl =
+            `https://img.vietqr.io/image/${BANK_SHORT_NAME}-${YOUR_ACCOUNT_NUMBER}-${TEMPLATE_NAME}.jpg`;
+        const qrImageElement = $('#qr-image');
 
-        function generateQRCode() {
-            const YOUR_ACCOUNT_NUMBER = "0363489746";
-            const BANK_SHORT_NAME = "MB";
-            const TEMPLATE_NAME = "compact";
-            const apiUrl = `https://img.vietqr.io/image/${BANK_SHORT_NAME}-${YOUR_ACCOUNT_NUMBER}-${TEMPLATE_NAME}.jpg`;
-            const qrImageElement = $('#qr-image');
-
-            if (qrImageElement.length) {
-                qrImageElement.closest('.caption').show();
-                qrImageElement.attr('src', apiUrl).css({
-                    'display': 'inline-block',
-                    'visibility': 'visible',
-                    'opacity': '1'
-                });
-            }
+        if (qrImageElement.length) {
+            qrImageElement.closest('.caption').show();
+            qrImageElement.attr('src', apiUrl).css({
+                'display': 'inline-block',
+                'visibility': 'visible',
+                'opacity': '1'
+            });
         }
+    }
 
-        function initializePaymentMethod() {
-            $('.payment-method .caption').hide();
-            const checkedInput = $('input[name="payment_method"]:checked');
-            if (checkedInput.length > 0) {
-                const activeCaption = checkedInput.closest('.input-radio').find('.caption');
-                activeCaption.show();
-                if (checkedInput.val() === 'bank_transfer') {
-                    generateQRCode();
-                }
-            }
-        }
-
-        $('input[name="payment_method"]').on('change', function() {
-            $('.payment-method .caption').slideUp();
-            const currentCaption = $(this).closest('.input-radio').find('.caption');
-            currentCaption.slideDown();
-            if ($(this).val() === 'bank_transfer') {
+    function initializePaymentMethod() {
+        $('.payment-method .caption').hide();
+        const checkedInput = $('input[name="payment_method"]:checked');
+        if (checkedInput.length > 0) {
+            const activeCaption = checkedInput.closest('.input-radio').find('.caption');
+            activeCaption.show();
+            if (checkedInput.val() === 'bank_transfer') {
                 generateQRCode();
             }
-        });
+        }
+    }
 
-        $('#shiping-address').on('change', function() {
-            if ($(this).is(':checked')) {
-                $(this).closest('.input-checkbox').find('.caption').slideDown();
-            } else {
-                $(this).closest('.input-checkbox').find('.caption').slideUp();
-            }
-        }).trigger('change');
-
-        $('#create-account').on('change', function() {
-            if ($(this).is(':checked')) {
-                $(this).closest('.input-checkbox').find('.caption').slideDown();
-            } else {
-                $(this).closest('.input-checkbox').find('.caption').slideUp();
-            }
-        }).trigger('change');
-
-        // --- Gán dữ liệu ẩn để tránh lỗi reload trang ---
-        var cartItemIds = {
-            !!json_encode($selectedCartItems - > pluck('id')) !!
-        };
-        var totalAmount = {
-            !!json_encode($selectedTotal) !!
-        };
-        $('#selected_cart_items_ids_checkout').val(cartItemIds.join(','));
-        $('#total_amount_checkout').val(totalAmount);
-
-        // --- Khởi tạo QR và hiển thị mặc định ---
-        initializePaymentMethod();
+    $('input[name="payment_method"]').on('change', function() {
+        $('.payment-method .caption').slideUp();
+        const currentCaption = $(this).closest('.input-radio').find('.caption');
+        currentCaption.slideDown();
+        if ($(this).val() === 'bank_transfer') {
+            generateQRCode();
+        }
     });
+
+    $('#shiping-address').on('change', function() {
+        if ($(this).is(':checked')) {
+            $(this).closest('.input-checkbox').find('.caption').slideDown();
+        } else {
+            $(this).closest('.input-checkbox').find('.caption').slideUp();
+        }
+    }).trigger('change');
+
+    $('#create-account').on('change', function() {
+        if ($(this).is(':checked')) {
+            $(this).closest('.input-checkbox').find('.caption').slideDown();
+        } else {
+            $(this).closest('.input-checkbox').find('.caption').slideUp();
+        }
+    }).trigger('change');
+
+    // --- Gán dữ liệu ẩn để tránh lỗi reload trang ---
+    $('#selected_cart_items_ids_checkout').val(Array.isArray(cartItemIds) ? cartItemIds.join(',') :
+        cartItemIds);
+    $('#total_amount_checkout').val(totalAmount);
+
+    // --- Khởi tạo QR và hiển thị mặc định ---
+    initializePaymentMethod();
+});
 </script>
 @endpush

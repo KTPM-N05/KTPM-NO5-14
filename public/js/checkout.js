@@ -47,18 +47,21 @@ $(document).ready(function(){
 
 				// Xử lý nút áp dụng mã giảm giá (demo)
 				$('#apply-discount-btn').on('click', function(e){
-					e.preventDefault();
-					var discountCode = $('input[name="discount-code"]').val();
-					if(discountCode.toLowerCase() === 'giamgia10'){
-						alert('Áp dụng mã giảm giá 10% thành công!');
-						// Cần logic cập nhật lại tổng tiền ở đây
-					} else if(discountCode === '') {
-						alert('Vui lòng nhập mã giảm giá.');
-					}
-					else {
-						alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
-					}
-				});
+    e.preventDefault();
+    var discountCode = $('input[name="discount-code"]').val();
+    var total = parseInt($('#total_amount_checkout').val());
+    if(discountCode.toLowerCase() === 'giamgia10'){
+        var newTotal = Math.round(total * 0.9);
+        $('#checkout-total').text(newTotal.toLocaleString('vi-VN') + ' VNĐ');
+        $('#total_amount_checkout').val(newTotal);
+        alert('Áp dụng mã giảm giá 10% thành công!');
+    } else if(discountCode === '') {
+        alert('Vui lòng nhập mã giảm giá.');
+    }
+    else {
+        alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+    }
+});
 
 				// Client-side validation demo (Bootstrap có thể xử lý một phần)
 				$('.order-submit').on('click', function(e){

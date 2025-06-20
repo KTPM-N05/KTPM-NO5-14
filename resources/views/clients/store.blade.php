@@ -79,7 +79,8 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                             </div>
                             <div class="product-body">
                                 <p class="product-category">
-                                    {{ $bestSellingProduct->category->name ?? 'Không có danh mục' }}</p>
+                                    {{ $bestSellingProduct->category->name ?? 'Không có danh mục' }}
+                                </p>
                                 {{-- Sửa: Sử dụng route 'products.show' --}}
                                 <h3 class="product-name"><a
                                         href="{{ route('products.show', $bestSellingProduct->slug) }}">{{ $bestSellingProduct->name }}</a>
@@ -158,26 +159,29 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                     <div class="product-body" style="padding:18px 24px 0 24px;">
                                         <p class="product-category"
                                             style="font-size:13px;color:#888;font-weight:500;margin-bottom:4px;">
-                                            {{ $product->category->name ?? 'N/A' }}</p>
+                                            {{ $product->category->name ?? 'N/A' }}
+                                        </p>
                                         <h3 class="product-name"
                                             style="font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:8px;">
                                             <a href="{{ route('products.show', $product->slug) }}"
-                                                style="color:#222;text-decoration:none;">{{ $product->name }}</a></h3>
+                                                style="color:#222;text-decoration:none;">{{ $product->name }}</a>
+                                        </h3>
                                         <h4 class="product-price"
                                             style="font-size:1.2rem;color:#d10024;font-weight:800;margin-bottom:6px;">
                                             {{ number_format($product->price) }} VNĐ @if($product->old_price) <del
                                                 class="product-old-price"
                                                 style="color:#aaa;font-size:1rem;font-weight:400;">{{ number_format($product->old_price) }}
-                                                VNĐ</del>@endif</h4>
+                                                VNĐ</del>@endif
+                                        </h4>
                                         <div class="product-rating" style="margin-bottom:8px;">
-                                        @php $avgRating = $product->averageRating(); @endphp
-                                        @for($i = 1; $i <= 5; $i++) <i
-                                            class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}" style="color:#ffc107;">
-                                            </i>
-                                            @endfor
-                                            <span
-                                                style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
-                                    </div>
+                                            @php $avgRating = $product->averageRating(); @endphp
+                                            @for($i = 1; $i <= 5; $i++) <i
+                                                class="fa fa-star{{ $i <= $avgRating ? '' : '-o' }}" style="color:#ffc107;">
+                                                </i>
+                                                @endfor
+                                                <span
+                                                    style="color:#888;font-size:13px;margin-left:4px;">({{ number_format($product->averageRating(), 1) }})</span>
+                                        </div>
                                         <div class="product-btns mb-2" style="display:flex;gap:8px;">
                                             <button
                                                 class="add-to-wishlist wishlist-btn{{ in_array($product->id, $wishlistIds) ? ' added' : '' }}"
@@ -261,121 +265,121 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
     </div>
 </div>
 <script>
-setTimeout(function() {
-    document.getElementById('cart-success-modal').style.display = 'none';
-}, 2000);
+    setTimeout(function() {
+        document.getElementById('cart-success-modal').style.display = 'none';
+    }, 2000);
 </script>
 @endif
 @endsection
 
 @push('scripts')
 <script>
-function applyBrandFilter(brandSlug) {
-    let currentUrl = new URL(window.location.href);
-    if (currentUrl.searchParams.get('brand') === brandSlug) {
-        currentUrl.searchParams.delete('brand');
-    } else {
-        currentUrl.searchParams.set('brand', brandSlug);
-    }
-    window.location.href = currentUrl.toString();
-}
-
-// Hàm áp dụng bộ lọc giá
-function applyPriceFilter() {
-    let minPrice = document.getElementById('price-min').value;
-    let maxPrice = document.getElementById('price-max').value;
-    let currentUrl = new URL(window.location.href);
-
-    if (minPrice) {
-        currentUrl.searchParams.set('price_min', minPrice);
-    } else {
-        currentUrl.searchParams.delete('price_min');
-    }
-    if (maxPrice) {
-        currentUrl.searchParams.set('price_max', maxPrice);
-    } else {
-        currentUrl.searchParams.delete('price_max');
-    }
-    window.location.href = currentUrl.toString();
-}
-
-// Khởi tạo slider giá (chắc chắn bạn đã có JS cho nouislider)
-var priceSlider = document.getElementById('price-slider');
-var priceMin = {
-    {
-        json_encode(request('price_min', 1))
-    }
-};
-var priceMax = {
-    {
-        json_encode(request('price_max', 99999999))
-    }
-};
-if (priceSlider) {
-    noUiSlider.create(priceSlider, {
-        start: [priceMin, priceMax],
-        connect: true,
-        step: 1,
-        range: {
-            'min': 1,
-            'max': 99999999
-        }
-    });
-    priceSlider.noUiSlider.on('update', function(values, handle) {
-        var value = values[handle];
-        if (handle) {
-            document.getElementById('price-max').value = Math.round(value);
+    function applyBrandFilter(brandSlug) {
+        let currentUrl = new URL(window.location.href);
+        if (currentUrl.searchParams.get('brand') === brandSlug) {
+            currentUrl.searchParams.delete('brand');
         } else {
-            document.getElementById('price-min').value = Math.round(value);
+            currentUrl.searchParams.set('brand', brandSlug);
         }
-    });
-}
+        window.location.href = currentUrl.toString();
+    }
 
-$(document).ready(function() {
-    $('.add-to-cart-form').on('submit', function(e) {
-        e.preventDefault();
-        var form = $(this);
-        $.ajax({
-            url: form.attr('action'),
-            method: 'POST',
-            data: form.serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(res) {
-                showCartSuccessModal('Sản phẩm đã được thêm vào giỏ hàng');
-            },
-            error: function(xhr) {
-                if (xhr.status === 401) {
-                    window.location.href = '/login';
-                } else {
-                    alert('Có lỗi xảy ra, vui lòng thử lại!');
-                }
+    // Hàm áp dụng bộ lọc giá
+    function applyPriceFilter() {
+        let minPrice = document.getElementById('price-min').value;
+        let maxPrice = document.getElementById('price-max').value;
+        let currentUrl = new URL(window.location.href);
+
+        if (minPrice) {
+            currentUrl.searchParams.set('price_min', minPrice);
+        } else {
+            currentUrl.searchParams.delete('price_min');
+        }
+        if (maxPrice) {
+            currentUrl.searchParams.set('price_max', maxPrice);
+        } else {
+            currentUrl.searchParams.delete('price_max');
+        }
+        window.location.href = currentUrl.toString();
+    }
+
+    // Khởi tạo slider giá (chắc chắn bạn đã có JS cho nouislider)
+    var priceSlider = document.getElementById('price-slider');
+    var priceMin = {
+        {
+            json_encode(request('price_min', 1))
+        }
+    };
+    var priceMax = {
+        {
+            json_encode(request('price_max', 99999999))
+        }
+    };
+    if (priceSlider) {
+        noUiSlider.create(priceSlider, {
+            start: [priceMin, priceMax],
+            connect: true,
+            step: 1,
+            range: {
+                'min': 1,
+                'max': 99999999
             }
         });
-    });
+        priceSlider.noUiSlider.on('update', function(values, handle) {
+            var value = values[handle];
+            if (handle) {
+                document.getElementById('price-max').value = Math.round(value);
+            } else {
+                document.getElementById('price-min').value = Math.round(value);
+            }
+        });
+    }
 
-    // AJAX filter for sort and per page
-    $('#sort-select, #perpage-select').on('change', function() {
-        let sort = $('#sort-select').val();
-        let perPage = $('#perpage-select').val();
-        let url = new URL(window.location.href);
-        url.searchParams.set('sort', sort);
-        url.searchParams.set('per_page', perPage);
-        $.get(url.toString(), {
-            ajax: 1
-        }, function(html) {
-            $('#ajax-products-list').html($(html).find('#ajax-products-list').html());
-            $('html,body').animate({
-                scrollTop: $('#ajax-products-list').offset().top - 80
-            }, 300);
+    $(document).ready(function() {
+        $('.add-to-cart-form').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(res) {
+                    showCartSuccessModal('Sản phẩm đã được thêm vào giỏ hàng');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        window.location.href = '/login';
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại!');
+                    }
+                }
+            });
+        });
+
+        // AJAX filter for sort and per page
+        $('#sort-select, #perpage-select').on('change', function() {
+            let sort = $('#sort-select').val();
+            let perPage = $('#perpage-select').val();
+            let url = new URL(window.location.href);
+            url.searchParams.set('sort', sort);
+            url.searchParams.set('per_page', perPage);
+            $.get(url.toString(), {
+                ajax: 1
+            }, function(html) {
+                $('#ajax-products-list').html($(html).find('#ajax-products-list').html());
+                $('html,body').animate({
+                    scrollTop: $('#ajax-products-list').offset().top - 80
+                }, 300);
+            });
         });
     });
-});
 
-function showCartSuccessModal(msg) {
-    if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
-    var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
+    function showCartSuccessModal(msg) {
+        if ($('#cart-success-modal').length) $('#cart-success-modal').remove();
+        var html = `<div id="cart-success-modal" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;">
             <div style="background:#222;padding:32px 40px;border-radius:16px;text-align:center;color:#fff;min-width:320px;box-shadow:0 8px 32px #0008;">
                 <div style="font-size:48px;color:#4caf50;margin-bottom:12px;">
                     <i class='fa fa-shopping-cart'></i> <i class='fa fa-check' style='color:#4caf50;'></i>
@@ -384,13 +388,13 @@ function showCartSuccessModal(msg) {
                 <a href="/cart" style="background:#fff;color:#222;padding:8px 24px;border-radius:24px;font-weight:600;text-decoration:none;">Xem giỏ hàng</a>
             </div>
         </div>`;
-    $('body').append(html);
-    setTimeout(function() {
-        $('#cart-success-modal').fadeOut(300, function() {
-            $(this).remove();
-        });
-    }, 2000);
-}
+        $('body').append(html);
+        setTimeout(function() {
+            $('#cart-success-modal').fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 2000);
+    }
 </script>
 @endpush
 
@@ -423,7 +427,8 @@ function showCartSuccessModal(msg) {
                 </div>
                 <div class="product-body" style="padding:18px 24px 0 24px;">
                     <p class="product-category" style="font-size:13px;color:#888;font-weight:500;margin-bottom:4px;">
-                        {{ $product->category->name ?? 'N/A' }}</p>
+                        {{ $product->category->name ?? 'N/A' }}
+                    </p>
                     <h3 class="product-name"
                         style="font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:8px;"><a
                             href="{{ route('products.show', $product->slug) }}"
@@ -431,7 +436,8 @@ function showCartSuccessModal(msg) {
                     <h4 class="product-price" style="font-size:1.2rem;color:#d10024;font-weight:800;margin-bottom:6px;">
                         {{ number_format($product->price) }} VNĐ @if($product->old_price) <del class="product-old-price"
                             style="color:#aaa;font-size:1rem;font-weight:400;">{{ number_format($product->old_price) }}
-                            VNĐ</del>@endif</h4>
+                            VNĐ</del>@endif
+                    </h4>
                     <div class="product-rating" style="margin-bottom:8px;">
                         @for ($i = 0; $i < $product->rating; $i++)
                             <i class="fa fa-star" style="color:#ffc107;"></i>
@@ -475,32 +481,32 @@ function showCartSuccessModal(msg) {
 @endsection
 @endif
 <style>
-.wishlist-btn:hover {
-    background: #ffe4ec !important;
-    box-shadow: 0 4px 16px #f8bbd0;
-}
+    .wishlist-btn:hover {
+        background: #ffe4ec !important;
+        box-shadow: 0 4px 16px #f8bbd0;
+    }
 
-.wishlist-btn:active {
-    background: #ffd6e3 !important;
-}
+    .wishlist-btn:active {
+        background: #ffd6e3 !important;
+    }
 
-.wishlist-icon:hover {
-    color: #ff4081 !important;
-    transform: scale(1.2);
-}
+    .wishlist-icon:hover {
+        color: #ff4081 !important;
+        transform: scale(1.2);
+    }
 </style>
 
-@section('scripts')
+@push('scripts')
 <script>
-$(function() {
-    // Tự động submit khi thay đổi dropdown sắp xếp hoặc hiển thị
-    $('#sort-select, #perpage-select').on('change', function() {
-        let url = new URL(window.location.href);
-        url.searchParams.set('sort', $('#sort-select').val());
-        url.searchParams.set('per_page', $('#perpage-select').val());
-        // Giữ lại các filter khác (category, price, brand...)
-        window.location.href = url.toString();
+    $(function() {
+        // Tự động submit khi thay đổi dropdown sắp xếp hoặc hiển thị
+        $('#sort-select, #perpage-select').on('change', function() {
+            let url = new URL(window.location.href);
+            url.searchParams.set('sort', $('#sort-select').val());
+            url.searchParams.set('per_page', $('#perpage-select').val());
+            // Giữ lại các filter khác (category, price, brand...)
+            window.location.href = url.toString();
+        });
     });
-});
 </script>
-@endsection
+@endpush

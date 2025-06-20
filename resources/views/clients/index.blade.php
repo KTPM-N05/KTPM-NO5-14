@@ -132,12 +132,7 @@ $wishlistIds = auth()->user()->wishlist()->pluck('product_id')->toArray();
                                             <i class="fa {{ $isWished ? 'fa-heart' : 'fa-heart-o' }} wishlist-icon"
                                                 style="color:#d10024;font-size:1.5rem;transition:color 0.2s;"></i>
                                         </button>
-                                        <button                                             style="background:transparent;border:none;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;position:relative;z-index:3;"
- class="add-to-compare" style="background:transparent;border:none;"><i
-                                                class="fa fa-exchange" style="color:#1976d2;"></i></button>
-                                        <button                                             style="background:transparent;border:none;outline:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;transition:box-shadow 0.2s,background 0.2s;box-shadow:0 2px 8px #f8bbd0;position:relative;z-index:3;"
- class="quick-view" style="background:transparent;border:none;"><i
-                                                class="fa fa-eye" style="color:#222;"></i></button>
+
                                     </div>
                                 </div>
                                 <div class="add-to-cart" style="padding:0 24px 18px 24px;">
